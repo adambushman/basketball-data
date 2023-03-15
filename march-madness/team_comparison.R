@@ -8,7 +8,6 @@ teams <- hoopR::espn_mbb_teams()
 
 # Conferences
 conf <- hoopR::espn_mbb_conferences()
-#test <- cfbplotR::
 
 # Stats
 cbb.trad <- hoopR::load_mbb_team_box()
@@ -35,8 +34,19 @@ cbb.exp <-
     pswing = as.numeric(offensive_rebounds) + as.numeric(steals)
   )
 
+imp_prob <- function(odds) {
+  if(odds > 1) {
+    x = round(100/(odds + 100), 2)
+  } else(
+    x = round((-1*odds)/((-1*odds) + 100),3)
+  )
+  x
+}
 
-get_comp <- function(my_team) {
+
+get_comp <- function(my_team, line) {
+  
+  print(paste(my_team, ' - ', imp_prob(line) * 100, '%', sep = ''))
   
   check <-
     cbb.exp %>%
@@ -155,7 +165,7 @@ search_team("Memphis")
 
 gt_two_column_layout(
   list(
-    get_comp("Memphis Tigers"), 
-    get_comp("Florida Atlantic Owls")
+    get_comp("Creighton Bluejays", -225), 
+    get_comp("NC State Wolfpack", 184)
   )
 )
