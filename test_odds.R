@@ -3,7 +3,7 @@ library('gt')
 
 my_data <- 
   readxl::read_xlsx(
-    'C:/Users/Adam Bushman/Dropbox (HFC)/Jabber Jazz Podcast/Draft/2023_Industry_Boards.xlsx'
+    'D:/Dropbox (HFC)/Jabber Jazz Podcast/Draft/2023_Industry_Boards.xlsx'
   )
 
 # Real rankings
@@ -133,7 +133,7 @@ runDraft <- function(to_pick) {
 }
 
 
-results = runDraft(12)
+results = runDraft(10)
 
 gt(results)
   
