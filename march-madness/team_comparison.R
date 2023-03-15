@@ -1,7 +1,7 @@
-# install.packages('hoopR')
-# install.packages('tidyverse')
 library('hoopR')
 library('tidyverse')
+library('gt')
+library('gtExtras')
 
 # Teams
 teams <- hoopR::espn_mbb_teams()
@@ -44,6 +44,7 @@ get_comp <- function(my_team) {
       suffix = c(".t", ".o")
     ) %>%
     summarise(
+      col.t = unique(team_color.t)[1], 
       a_tsa.t = sum(tsa.t) / n(), 
       a_tsa.o = sum(tsa.o) / n(), 
       a_pswing.t = sum(pswing.t) / n(), 
@@ -64,7 +65,8 @@ get_comp <- function(my_team) {
     )
   
   stats <-
-    check %>%
+    check %>% 
+    select(-col.t) %>%
     pivot_longer(
       cols = everything(), 
       names_to = "name", 
@@ -85,15 +87,51 @@ get_comp <- function(my_team) {
     ) %>%
     mutate(diff = TEAM - OPPONENT)
   
-  print(my_team)
-  print(stats)
-  
+  gt(stats) %>%
+    tab_header(
+      title = my_team
+    ) %>%
+    cols_label(
+      metric = "Metric", 
+      TEAM = "Team", 
+      OPPONENT = "Opponent", 
+      diff = "Diff"
+    ) %>%
+    fmt_number(
+      columns = c(TEAM, OPPONENT, diff), 
+      decimals = 3
+    ) %>%
+    tab_style(
+      style = list(
+        cell_text(color = "red2", weight = "bold")
+      ), 
+      locations = cells_body(
+        columns = diff, 
+        rows = diff < 0
+      )
+    ) %>%
+    tab_style(
+      style = list(
+        cell_text(color = "green3", weight = "bold")
+      ), 
+      locations = cells_body(
+        columns = diff, 
+        rows = diff > 0
+      )
+    ) %>%
+    tab_options(
+      heading.background.color = coalesce(paste("#", check$col.t, sep = ""), "white"), 
+      column_labels.background.color = "lightgray"
+    )
 }
 
 teams %>%
   filter(stringr::str_detect(display_name, "Furman")) %>%
   select(display_name:team)
 
-
-get_comp("Virginia Cavaliers")
-get_comp("Furman Paladins")
+gt_two_column_layout(
+  list(
+    get_comp("Virginia Cavaliers"), 
+    get_comp("Furman Paladins")
+  )
+)
