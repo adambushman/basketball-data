@@ -36,10 +36,10 @@ get_comp <- function(my_team) {
   
   check <-
     cbb.exp %>%
-    filter(team_location == my_team) %>%
+    filter(team_display_name == my_team) %>%
     inner_join(
       cbb.exp %>% 
-        filter(team_location != my_team), 
+        filter(team_display_name != my_team), 
       by = "game_id",
       suffix = c(".t", ".o")
     ) %>%
@@ -85,10 +85,15 @@ get_comp <- function(my_team) {
     ) %>%
     mutate(diff = TEAM - OPPONENT)
   
+  print(my_team)
   print(stats)
   
 }
 
+teams %>%
+  filter(stringr::str_detect(display_name, "Furman")) %>%
+  select(display_name:team)
 
-get_comp("Maryland")
-get_comp("West Virginia")
+
+get_comp("Virginia Cavaliers")
+get_comp("Furman Paladins")
