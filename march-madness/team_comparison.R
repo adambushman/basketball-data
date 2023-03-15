@@ -8,6 +8,7 @@ teams <- hoopR::espn_mbb_teams()
 
 # Conferences
 conf <- hoopR::espn_mbb_conferences()
+#test <- cfbplotR::
 
 # Stats
 cbb.trad <- hoopR::load_mbb_team_box()
@@ -103,11 +104,11 @@ get_comp <- function(my_team) {
     ) %>%
     tab_row_group(
       label = "Results", 
-      rows = (metric %in% c("a_tsp", "v_tsp"))
+      rows = (metric %in% c("a_tsp", "v_tsp", "a_lead"))
     ) %>%
     tab_row_group(
       label = "Process", 
-      rows = !(metric %in% c("a_tsp", "v_tsp"))
+      rows = !(metric %in% c("a_tsp", "v_tsp", "a_lead"))
     ) %>%
     fmt_number(
       columns = c(TEAM, OPPONENT, diff), 
@@ -132,19 +133,29 @@ get_comp <- function(my_team) {
       )
     ) %>%
     tab_options(
-      heading.background.color = coalesce(paste("#", check$col.t, sep = ""), "white"), 
+      heading.background.color = ifelse(is.na(check$col.t), "white", paste("#", check$col.t, sep = "")), 
       column_labels.background.color = "lightgray", 
       row_group.padding = unit(2, "pt")
     )
 }
 
-teams %>%
-  filter(stringr::str_detect(display_name, "Furman")) %>%
-  select(display_name:team)
+search_team <- function(word) {
+  teams %>%
+    filter(
+      stringr::str_detect(abbreviation, word) |
+        stringr::str_detect(display_name, word) |
+        stringr::str_detect(short_name, word) |
+        stringr::str_detect(team, word) |
+        stringr::str_detect(nickname, word)
+    ) %>%
+    select(display_name)
+}
+
+search_team("Memphis")
 
 gt_two_column_layout(
   list(
-    get_comp("Virginia Cavaliers"), 
-    get_comp("Furman Paladins")
+    get_comp("Memphis Tigers"), 
+    get_comp("Florida Atlantic Owls")
   )
 )
