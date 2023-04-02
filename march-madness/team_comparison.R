@@ -1,10 +1,13 @@
-# install.packages('hoopR')
-# install.packages('tidyverse')
 library('hoopR')
 library('tidyverse')
+library('gt')
+library('gtExtras')
 
 # Teams
 teams <- hoopR::espn_mbb_teams()
+
+# Conferences
+conf <- hoopR::espn_mbb_conferences()
 
 # Stats
 cbb.trad <- hoopR::load_mbb_team_box()
@@ -31,19 +34,32 @@ cbb.exp <-
     pswing = as.numeric(offensive_rebounds) + as.numeric(steals)
   )
 
+imp_prob <- function(odds) {
+  if(odds > 1) {
+    x = round(100/(odds + 100), 2)
+  } else(
+    x = round((-1*odds)/((-1*odds) + 100),3)
+  )
+  x
+}
 
-get_comp <- function(my_team) {
+
+get_comp <- function(my_team, line) {
+  
+  print(paste(my_team, ' - ', imp_prob(line) * 100, '%', sep = ''))
   
   check <-
     cbb.exp %>%
-    filter(team_location == my_team) %>%
+    filter(team_display_name == my_team) %>%
     inner_join(
       cbb.exp %>% 
-        filter(team_location != my_team), 
+        filter(team_display_name != my_team), 
       by = "game_id",
       suffix = c(".t", ".o")
     ) %>%
     summarise(
+      col.t = unique(team_color.t)[1], 
+      cola.t = unique(team_alternate_color.t)[1], 
       a_tsa.t = sum(tsa.t) / n(), 
       a_tsa.o = sum(tsa.o) / n(), 
       a_pswing.t = sum(pswing.t) / n(), 
@@ -64,7 +80,8 @@ get_comp <- function(my_team) {
     )
   
   stats <-
-    check %>%
+    check %>% 
+    select(-col.t, -cola.t) %>%
     pivot_longer(
       cols = everything(), 
       names_to = "name", 
@@ -85,10 +102,70 @@ get_comp <- function(my_team) {
     ) %>%
     mutate(diff = TEAM - OPPONENT)
   
-  print(stats)
-  
+  gt(stats) %>%
+    tab_header(
+      title = my_team
+    ) %>%
+    cols_label(
+      metric = "Metric", 
+      TEAM = "Team", 
+      OPPONENT = "Opponent", 
+      diff = "Diff"
+    ) %>%
+    tab_row_group(
+      label = "Results", 
+      rows = (metric %in% c("a_tsp", "v_tsp", "a_lead"))
+    ) %>%
+    tab_row_group(
+      label = "Process", 
+      rows = !(metric %in% c("a_tsp", "v_tsp", "a_lead"))
+    ) %>%
+    fmt_number(
+      columns = c(TEAM, OPPONENT, diff), 
+      decimals = 3
+    ) %>%
+    tab_style(
+      style = list(
+        cell_text(color = "red2", weight = "bold")
+      ), 
+      locations = cells_body(
+        columns = diff, 
+        rows = diff < 0
+      )
+    ) %>%
+    tab_style(
+      style = list(
+        cell_text(color = "green3", weight = "bold")
+      ), 
+      locations = cells_body(
+        columns = diff, 
+        rows = diff > 0
+      )
+    ) %>%
+    tab_options(
+      heading.background.color = ifelse(is.na(check$col.t), "white", paste("#", check$col.t, sep = "")), 
+      column_labels.background.color = "lightgray", 
+      row_group.padding = unit(2, "pt")
+    )
 }
 
+search_team <- function(word) {
+  teams %>%
+    filter(
+      stringr::str_detect(abbreviation, word) |
+        stringr::str_detect(display_name, word) |
+        stringr::str_detect(short_name, word) |
+        stringr::str_detect(team, word) |
+        stringr::str_detect(nickname, word)
+    ) %>%
+    select(display_name)
+}
 
-get_comp("Maryland")
-get_comp("West Virginia")
+search_team("Memphis")
+
+gt_two_column_layout(
+  list(
+    get_comp("Creighton Bluejays", -225), 
+    get_comp("NC State Wolfpack", 184)
+  )
+)
