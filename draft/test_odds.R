@@ -107,7 +107,9 @@ showAvailable <- function(df) {
 
 
 
-runDraft <- function(selection_teams = c()) {
+runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
+  
+  pp_num = length(partial_picks)
   
   board = tibble(
     pick = seq(1, 30), 
@@ -116,12 +118,12 @@ runDraft <- function(selection_teams = c()) {
       "ORL", "OKC", "ATL", "UTA", "TOR", "NOP", "LAL", "HOU", "MIA", "GSW", 
       "BKN", "BKN", "POR", "SAC", "IND", "MEM", "CHA", "UTA", "IND", "LAC"
     ), 
-    prospect = rep(as.character(NA), 30)
+    prospect = c(partial_picks, rep(as.character(NA), 30 - pp_num))
   )
   
   draft_order = board$team
   
-  for(i in 1:nrow(board)) {
+  for(i in 1:(nrow(board) - pp_num) + pp_num) {
     
     unavailable = board$prospect[!is.na(board$prospect)]
     
@@ -138,7 +140,7 @@ runDraft <- function(selection_teams = c()) {
         select(id, Player)
       
       print(">>> Selected Picks <<<")
-      print(board %>% filter(!is.na(prospect)))
+      board %>% filter(!is.na(prospect)) %>% print(n = nrow(.))
       print(">>> Available Prospects <<<")
       available %>% arrange(-id) %>% print(n = nrow(.))
       
@@ -155,20 +157,63 @@ runDraft <- function(selection_teams = c()) {
     }
   }
   
-  gt(board) %>%
-    tab_style(
-      style = list(
-        cell_fill(color = "#f6ee26"),
-        cell_text(weight = "bold")
-      ),
-      locations = cells_body(
-        columns = everything(),
-        rows = team %in% selection_teams
-      )
-    )
+  styleTabl <- function(x) {
+    gt(x) %>%
+      tab_header(
+        title = "2023 Draft Simulation | Round #1", 
+        subtitle = glue::glue("Highlighted Picks Chosen By {user}")
+      ) %>%
+      cols_label(
+        pick = "Pick #", 
+        team = "Team", 
+        prospect = "Prospect Name"
+      ) %>%
+      tab_source_note(source_note = "Simulation fed by five industry big boards") %>%
+      tab_source_note(source_note = "Designed by @adam_bushman") %>%
+      tab_style(
+        style = list(
+          cell_fill(color = "#f6ee26"),
+          cell_text(weight = "bold")
+        ),
+        locations = cells_body(
+          columns = everything(),
+          rows = team %in% selection_teams
+        )
+      ) %>%
+      tab_options(
+        heading.background.color = "#050505", 
+        column_labels.background.color = "#dbe2ea", 
+        column_labels.font.weight = "bold", 
+        source_notes.background.color = "#dbe2ea"
+      ) 
+  }
+  
+  gt_two_column_layout(
+    gt_double_table(board, styleTabl, nrows = 15), 
+    vwidth = 635, vheight = 765
+  )
+  
 }
 
+first_X = c(
+  "Victor Wembanyama", "Scoot Henderson", "Brandon Miller", "Amen Thompson", "Cam Whitmore",
+  "Ausar Thompson", "Jarace Walker", "Keyonte George"
+)
+
+next_X = c(
+  
+)
+
+last_X = c(
+  
+)
 
 runDraft(
   c("UTA")
+  # , c(
+  #     first_X, 
+  #     next_X, 
+  #     last_X
+  #   )
+  , user = "@adam_bushman"
 )
