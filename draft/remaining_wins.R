@@ -133,3 +133,27 @@ x %>%
     perc = n() / nrow(.)
   ) %>%
   ungroup()
+
+
+t %>%
+  mutate( 
+    p6 = purrr::map(pos_6, find_uta)[[1]], 
+    p7 = purrr::map(pos_7, find_uta)[[1]], 
+    p8 = purrr::map(pos_8, find_uta)[[1]], 
+    p9 = purrr::map(pos_9, find_uta)[[1]], 
+    p10 = purrr::map(pos_10, find_uta)[[1]]
+  ) %>%
+  mutate(
+    position = case_when(
+      p6 ~ "6th", 
+      p7 ~ "7th", 
+      p8 ~ "8th", 
+      p9 ~ "9th", 
+      p10 ~ "10th"
+    )
+  ) %>%
+  group_by(position) %>%
+  summarise(n() / 1000)
+
+
+t$pos_9[9]
