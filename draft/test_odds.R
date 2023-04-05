@@ -10,6 +10,10 @@ my_data <-
 # Real rankings
 real_rank <- 
   my_data %>%
+  mutate(
+    Source = , 
+    Date = 
+  )
   pivot_longer(
     cols = -Rank, 
     names_to = "Source", 
@@ -97,15 +101,6 @@ makeSelection <- function(pick, db) {
   }
 }
 
-showPicked <- function(df) {
-  gt(df)
-}
-
-showAvailable <- function(df) {
-  gt(df)
-}
-
-
 
 runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
   
@@ -114,9 +109,9 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
   board = tibble(
     pick = seq(1, 30), 
     team = c(
-      "DET", "HOU", "SAS", "CHA", "POR", "ORL", "IND", "WAS", "UTA", "DAL", 
-      "ORL", "OKC", "ATL", "UTA", "TOR", "NOP", "LAL", "HOU", "MIA", "GSW", 
-      "BKN", "BKN", "POR", "SAC", "IND", "MEM", "CHA", "UTA", "IND", "LAC"
+      "HOU", "DET", "SAS", "CHA", "POR", "IND", "WAS", "ORL", "UTA", "DAL", 
+      "OKC", "ORL", "UTA", "TOR", "ATL", "NOP", "LAL", "HOU", "GSW", "MIA", 
+      "BKN", "BKN", "POR", "SAC", "IND", "MEM", "UTA", "CHA", "IND", "LAC"
     ), 
     prospect = c(partial_picks, rep(as.character(NA), 30 - pp_num))
   )
@@ -196,12 +191,14 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
 }
 
 first_X = c(
-  "Victor Wembanyama", "Scoot Henderson", "Brandon Miller", "Amen Thompson", "Cam Whitmore",
-  "Ausar Thompson", "Jarace Walker", "Keyonte George"
+  "Victor Wembanyama", "Scoot Henderson", "Brandon Miller", "Amen Thompson", "Ausar Thompson",
+  "Jarace Walker", "Nick Smith Jr.", "Anthony Black"
 )
 
+###############################################
+
 next_X = c(
-  
+  "Cam Whitmore", "Cason Wallace", "Keyonte George", "Jalen Hood-Schifino"
 )
 
 last_X = c(
@@ -210,10 +207,177 @@ last_X = c(
 
 runDraft(
   c("UTA")
-  # , c(
-  #     first_X, 
-  #     next_X, 
-  #     last_X
-  #   )
+  , c(
+      #first_X
+      # , next_X
+      # , last_X
+    )
   , user = "@adam_bushman"
+)
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Taylor Hendricks", "Keyonte George", "Gradey Dick"
+)
+
+last_X = c(
+  "Cason Wallace", "Noah Clowney", "Jett Howard" ,"Dereck Lively II", "Jordan Hawkins", "Leonard Miller",      
+  "Jalen Hood-Schifino", "Brice Sensabaugh", "Kyle Filipowski", "Maxwell Lewis", 
+  "DaRon Holmes II", "Rayan Rupert", "Kris Murray", "Colby Jones"
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    , next_X
+    , last_X
+  )
+  , user = "@JordanCanes"
+)
+
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Cason Wallace", "Keyonte George", "Jalen Hood-Schifino"
+)
+
+last_X = c(
+  
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    , next_X
+    # , last_X
+  )
+  , user = "@RichieOstler3"
+)
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Cason Wallace", "Gradey Dick", "Keyonte George"
+)
+
+last_X = c(
+  
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    # , next_X
+    # , last_X
+  )
+  , user = "@CaspersonDallin"
+)
+
+###############################################
+
+next_X = c(
+  "Cason Wallace", "Cam Whitmore", "Taylor Hendricks", "Jordan Hawkins"
+)
+
+last_X = c(
+  
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    # , next_X
+    # , last_X
+  )
+  , user = "@seanaverett3"
+)
+
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Keyonte George", "Cason Wallace", "Jordan Hawkins"
+)
+
+last_X = c(
+  "GG Jackson", "Jett Howard", "Taylor Hendricks", "Gradey Dick", "Kyle Filipowski", "Rayan Rupert", "Terquavion Smith", 
+  "Brice Sensabaugh", "Kobe Bufkin", "Maxwell Lewis", "Dereck Lively II", "Noah Clowney", "Kris Murray", "DaRon Holmes II"  
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    , next_X
+    # , last_X
+  )
+  , user = "@sportslake4646"
+)
+
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Taylor Hendricks", "Keyonte George", "Jordan Hawkins"
+)
+
+last_X = c(
+  
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    , next_X
+    # , last_X
+  )
+  , user = "@Burgi14"
+)
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Taylor Hendricks", "Keyonte George", "Jalen Hood-Schifino"
+)
+
+last_X = c(
+  "Gradey Dick", "Cason Wallace", "Jett Howard", "Jordan Hawkins", "Terquavion Smith", "Rayan Rupert", "Dariq Whitehead", 
+  "Brice Sensabaugh", "Kyle Filipowski", "Leonard Miller", "Dereck Lively II", "Kris Murray", "Kobe Bufkin", "Colby Jones"
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    , next_X
+    , last_X
+  )
+  , user = "@rgiss11"
+)
+
+###############################################
+
+next_X = c(
+  "Cam Whitmore", "Cason Wallace", "Gradey Dick", "Jordan Hawkins"
+)
+
+last_X = c(
+  
+)
+
+runDraft(
+  c("UTA")
+  , c(
+    first_X
+    , next_X
+    # , last_X
+  )
+  , user = "@HoboJ_"
 )
