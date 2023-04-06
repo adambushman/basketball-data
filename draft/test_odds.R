@@ -1,24 +1,35 @@
 library('tidyverse')
 library('gt')
 library('gtExtras')
+library('stringr')
 
 my_data <- 
   read_csv(
     url('https://raw.githubusercontent.com/adambushman/basketball-data/master/draft/2023_Industry_Boards.csv')
   )
 
-# Real rankings
-real_rank <- 
+# Long rankings
+long_rank <- 
   my_data %>%
-  mutate(
-    Source = , 
-    Date = 
-  )
   pivot_longer(
     cols = -Rank, 
     names_to = "Source", 
     values_to = "Player"
   ) %>%
+  mutate(
+    Update = str_sub(Source, str_locate(Source, "\\|")[,1] + 2, str_length(Source)), 
+    Source = str_sub(Source, 1, str_locate(Source, "\\|")[,1] - 2)
+  )
+
+# Sources
+sources <-
+  long_rank %>%
+  select(Source, Update) %>%
+  distinct()
+
+# Real rankings
+real_rank <-
+  long_rank %>%
   group_by(Rank, Player) %>%
   summarise(Freq = n()) %>%
   ungroup() %>%
@@ -35,7 +46,8 @@ full_rank <-
   arrange(Rank) %>%
   select(Rank, Player, Default)
 
-test <-
+# Joined rankings
+joined_rank <-
   left_join(
     full_rank, 
     real_rank,
@@ -49,16 +61,29 @@ test <-
     R_Freq = F_Freq / sum(F_Freq)
   )
 
-
+# Lowest rank
 max_rank <-
-  test %>% 
+  long_rank %>% 
   group_by(Player) %>%
-  summarise(m_pick = min(max(Rank)), nrow(my_data)) %>%
+  summarise(
+    n_rank = n(), 
+    rows = nrow(my_data), 
+    maxx = max(Rank)
+  ) %>% 
+  ungroup() %>%
+  rowwise() %>%
+  mutate(
+    m_pick = case_when(
+      n_rank < 2 ~ rows, 
+      TRUE ~ min(c(maxx, rows))
+    )
+  ) %>%
   arrange(m_pick)
   
   
 prob_board <-
-  test %>%
+  joined_rank %>%
+  group_by(Player) %>%
   summarise(
     prospects = list(Player), 
     probabilities = list(R_Freq), 
@@ -207,177 +232,10 @@ last_X = c(
 
 runDraft(
   c("UTA")
-  , c(
-      #first_X
-      # , next_X
-      # , last_X
-    )
+  # , c(
+  #     #first_X
+  #     # , next_X
+  #     # , last_X
+  #   )
   , user = "@adam_bushman"
-)
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Taylor Hendricks", "Keyonte George", "Gradey Dick"
-)
-
-last_X = c(
-  "Cason Wallace", "Noah Clowney", "Jett Howard" ,"Dereck Lively II", "Jordan Hawkins", "Leonard Miller",      
-  "Jalen Hood-Schifino", "Brice Sensabaugh", "Kyle Filipowski", "Maxwell Lewis", 
-  "DaRon Holmes II", "Rayan Rupert", "Kris Murray", "Colby Jones"
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    , next_X
-    , last_X
-  )
-  , user = "@JordanCanes"
-)
-
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Cason Wallace", "Keyonte George", "Jalen Hood-Schifino"
-)
-
-last_X = c(
-  
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    , next_X
-    # , last_X
-  )
-  , user = "@RichieOstler3"
-)
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Cason Wallace", "Gradey Dick", "Keyonte George"
-)
-
-last_X = c(
-  
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    # , next_X
-    # , last_X
-  )
-  , user = "@CaspersonDallin"
-)
-
-###############################################
-
-next_X = c(
-  "Cason Wallace", "Cam Whitmore", "Taylor Hendricks", "Jordan Hawkins"
-)
-
-last_X = c(
-  
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    # , next_X
-    # , last_X
-  )
-  , user = "@seanaverett3"
-)
-
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Keyonte George", "Cason Wallace", "Jordan Hawkins"
-)
-
-last_X = c(
-  "GG Jackson", "Jett Howard", "Taylor Hendricks", "Gradey Dick", "Kyle Filipowski", "Rayan Rupert", "Terquavion Smith", 
-  "Brice Sensabaugh", "Kobe Bufkin", "Maxwell Lewis", "Dereck Lively II", "Noah Clowney", "Kris Murray", "DaRon Holmes II"  
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    , next_X
-    # , last_X
-  )
-  , user = "@sportslake4646"
-)
-
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Taylor Hendricks", "Keyonte George", "Jordan Hawkins"
-)
-
-last_X = c(
-  
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    , next_X
-    # , last_X
-  )
-  , user = "@Burgi14"
-)
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Taylor Hendricks", "Keyonte George", "Jalen Hood-Schifino"
-)
-
-last_X = c(
-  "Gradey Dick", "Cason Wallace", "Jett Howard", "Jordan Hawkins", "Terquavion Smith", "Rayan Rupert", "Dariq Whitehead", 
-  "Brice Sensabaugh", "Kyle Filipowski", "Leonard Miller", "Dereck Lively II", "Kris Murray", "Kobe Bufkin", "Colby Jones"
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    , next_X
-    , last_X
-  )
-  , user = "@rgiss11"
-)
-
-###############################################
-
-next_X = c(
-  "Cam Whitmore", "Cason Wallace", "Gradey Dick", "Jordan Hawkins"
-)
-
-last_X = c(
-  
-)
-
-runDraft(
-  c("UTA")
-  , c(
-    first_X
-    , next_X
-    # , last_X
-  )
-  , user = "@HoboJ_"
 )
