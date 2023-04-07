@@ -9,6 +9,7 @@ player_pbp <- hoopR::load_mbb_pbp()
 
 agg_stats <-
   player_stats %>%
+  filter(!is.na(minutes)) %>%
   group_by(
     athlete_id, 
     athlete_display_name, 
@@ -17,14 +18,14 @@ agg_stats <-
   ) %>%
   summarise(
     gp = n(), 
-    mp = round(sum(as.numeric(minutes)) / n(), 1), 
-    a_reb = round(sum(as.numeric(rebounds)) / n(), 1), 
-    a_tov = round(sum(as.numeric(turnovers)) / n(), 1), 
-    a_stl = round(sum(as.numeric(steals)) / n(), 1), 
-    a_blk = round(sum(as.numeric(blocks)) / n(), 1), 
-    a_ast = round(sum(as.numeric(assists)) / n(), 1), 
-    a_ft = round(sum(as.numeric(str_sub(free_throws_attempted))) / n(), 1), 
-    a_fga = round(sum(as.numeric(str_sub(field_goals_attempted, str_locate(field_goals_attempted, "-")[,1]+1, str_length(field_goals_attempted)))) / n(), 1)
+    mp = sum(minutes), 
+    a_reb = round(sum(rebounds) / n(), 1), 
+    a_tov = round(sum(turnovers) / n(), 1), 
+    a_stl = round(sum(steals) / n(), 1), 
+    a_blk = round(sum(blocks) / n(), 1), 
+    a_ast = round(sum(assists) / n(), 1), 
+    a_ft = round(sum(free_throws_attempted) / n(), 1), 
+    a_fga = round(sum(field_goals_attempted) / n(), 1)
   ) %>%
   ungroup() %>%
   mutate(
@@ -78,12 +79,9 @@ self_creation %>%
     fgm_perc = percent_rank(unast_fgm), 
     freq_perc = percent_rank(unast_freq)
   ) %>%
-  select(-participants_0_athlete_id) %>%
+  select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    stringr::str_detect(athlete_display_name, "Maxwell Lewis") |
-      #stringr::str_detect(athlete_display_name, "Jett Howard") |
-      #stringr::str_detect(athlete_display_name, "Keyonte George") |
-      stringr::str_detect(athlete_display_name, "Terquavion Smith")
+    athlete_display_name %in% c("Dariq Whitehead", "Brice Sensabaugh", "Jalen Hood-Schifino", "Colby Jones")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -95,7 +93,7 @@ dunks_layups <-
   ) %>%
   filter(shooting_play == TRUE & !stringr::str_detect(text, "Free Throw")) %>%
   group_by(
-    participants_0_athlete_id
+    athlete_id_1
   ) %>%
   summarise(
     dl_pts = sum(case_when(dunk_layup ~ ifelse(scoring_play, score_value, 0), TRUE ~ 0)), 
@@ -111,7 +109,7 @@ dunks_layups <-
         athlete_position_name, 
         team_name
       ), 
-    by = c("participants_0_athlete_id" = "athlete_id")
+    by = c("athlete_id_1" = "athlete_id")
   )
 
 dunks_layups %>%
@@ -123,12 +121,57 @@ dunks_layups %>%
     ppa_perc = percent_rank(ppa)
   ) %>%
   ungroup() %>%
-  select(-participants_0_athlete_id) %>%
+  select(
+    athlete_display_name, athlete_position_name, team_name, 
+    dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
+  ) %>%
   filter(
-    stringr::str_detect(athlete_display_name, "Jalen Hood") |
-      stringr::str_detect(athlete_display_name, "Dariq Whitehead") |
-      #stringr::str_detect(athlete_display_name, "Keyonte George") |
-      stringr::str_detect(athlete_display_name, "Terquavion Smith")
+    athlete_display_name %in% c("Dariq Whitehead", "Brice Sensabaugh", "Jalen Hood-Schifino", "Colby Jones")
+  )
+
+# JUMP SHOTS
+
+jumpshots <- 
+  player_pbp %>%
+  mutate(
+    jumpshot = ifelse(type_text =="JumpShot", TRUE, FALSE)
+  ) %>%
+  filter(shooting_play == TRUE & !stringr::str_detect(text, "Free Throw")) %>%
+  group_by(
+    athlete_id_1
+  ) %>%
+  summarise(
+    js_pts = sum(case_when(jumpshot ~ ifelse(scoring_play, score_value, 0), TRUE ~ 0)), 
+    js_att = sum(case_when(jumpshot ~ 1, TRUE ~ 0)), 
+    fga = n(), 
+    ppa = round(js_pts / js_att, 3)
+  ) %>%
+  inner_join(
+    player_stats %>% 
+      distinct(
+        athlete_id, 
+        athlete_display_name, 
+        athlete_position_name, 
+        team_name
+      ), 
+    by = c("athlete_id_1" = "athlete_id")
+  )
+
+jumpshots %>%
+  filter(js_att > 10) %>%
+  group_by(athlete_position_name) %>%
+  mutate(
+    js_freq = round(js_att / fga, 3), 
+    freq_perc = percent_rank(js_freq), 
+    ppa_perc = percent_rank(ppa)
+  ) %>%
+  ungroup() %>%
+  select(
+    athlete_display_name, athlete_position_name, team_name, 
+    js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
+  ) %>%
+  filter(
+    athlete_display_name %in% c("Dariq Whitehead", "Brice Sensabaugh", "Jalen Hood-Schifino", "Colby Jones")
   )
 
 
@@ -153,10 +196,7 @@ agg_stats %>%
     activity_perc
   ) %>%
   filter(
-    stringr::str_detect(athlete_display_name, "Brandon Miller") |
-      stringr::str_detect(athlete_display_name, "Jarace Walker") |
-      stringr::str_detect(athlete_display_name, "Gregory Jackson") |
-      stringr::str_detect(athlete_display_name, "Cam Whitmore")
+    athlete_display_name %in% c("Gradey Dick", "Jett Howard", "Jordan Hawkins", "Keyonte George")
   )
 
 # REBOUNDING
@@ -175,10 +215,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    stringr::str_detect(athlete_display_name, "Brandon Miller") |
-      stringr::str_detect(athlete_display_name, "Jarace Walker") |
-      stringr::str_detect(athlete_display_name, "Gregory Jackson") |
-      stringr::str_detect(athlete_display_name, "Cam Whitmore")
+    athlete_display_name %in% c("Gradey Dick", "Jett Howard", "Jordan Hawkins", "Keyonte George")
   )
 
 
@@ -202,10 +239,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    stringr::str_detect(athlete_display_name, "Jett Howard") |
-      stringr::str_detect(athlete_display_name, "Gradey Dick") |
-      stringr::str_detect(athlete_display_name, "Keyonte George") |
-      stringr::str_detect(athlete_display_name, "Brice Sensabaugh")
+    athlete_display_name %in% c("Gradey Dick", "Jett Howard", "Jordan Hawkins", "Keyonte George")
   )
 
 # FREE THROWS
@@ -228,8 +262,5 @@ agg_stats %>%
     ftR_perc
   ) %>%
   filter(
-    stringr::str_detect(athlete_display_name, "Brandon Miller") |
-      stringr::str_detect(athlete_display_name, "Jarace Walker") |
-      stringr::str_detect(athlete_display_name, "Gregory Jackson") |
-      stringr::str_detect(athlete_display_name, "Cam Whitmore")
+    athlete_display_name %in% c("Gradey Dick", "Jett Howard", "Jordan Hawkins", "Keyonte George")
   )
