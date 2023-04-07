@@ -7,8 +7,6 @@ player_stats <- hoopR::load_mbb_player_box()
 
 player_pbp <- hoopR::load_mbb_pbp()
 
-glimpse(player_stats)
-
 agg_stats <-
   player_stats %>%
   group_by(
@@ -19,14 +17,14 @@ agg_stats <-
   ) %>%
   summarise(
     gp = n(), 
-    mp = round(sum(as.numeric(min)) / n(), 1), 
-    a_reb = round(sum(as.numeric(reb)) / n(), 1), 
-    a_tov = round(sum(as.numeric(to)) / n(), 1), 
-    a_stl = round(sum(as.numeric(stl)) / n(), 1), 
-    a_blk = round(sum(as.numeric(blk)) / n(), 1), 
-    a_ast = round(sum(as.numeric(ast)) / n(), 1), 
-    a_ft = round(sum(as.numeric(str_sub(ft, str_locate(ft, "-")[,1]+1, str_length(ft)))) / n(), 1), 
-    a_fga = round(sum(as.numeric(str_sub(fg, str_locate(fg, "-")[,1]+1, str_length(fg)))) / n(), 1)
+    mp = round(sum(as.numeric(minutes)) / n(), 1), 
+    a_reb = round(sum(as.numeric(rebounds)) / n(), 1), 
+    a_tov = round(sum(as.numeric(turnovers)) / n(), 1), 
+    a_stl = round(sum(as.numeric(steals)) / n(), 1), 
+    a_blk = round(sum(as.numeric(blocks)) / n(), 1), 
+    a_ast = round(sum(as.numeric(assists)) / n(), 1), 
+    a_ft = round(sum(as.numeric(str_sub(free_throws_attempted))) / n(), 1), 
+    a_fga = round(sum(as.numeric(str_sub(field_goals_attempted, str_locate(field_goals_attempted, "-")[,1]+1, str_length(field_goals_attempted)))) / n(), 1)
   ) %>%
   ungroup() %>%
   mutate(
@@ -53,9 +51,9 @@ self_creation <-
   mutate(
     assisted = stringr::str_detect(text, "Assisted")
   ) %>%
-  filter(scoring_play == TRUE & !stringr::str_detect(text, "Free Throw")) %>%
+  filter(scoring_play == TRUE & !stringr::str_detect(text, "Free Throw") & !is.na(athlete_id_1)) %>%
   group_by(
-    participants_0_athlete_id
+    athlete_id_1
   ) %>%
   summarise(
     unast_fgm = sum(case_when(assisted ~ 0, TRUE ~ 1)), 
@@ -69,7 +67,7 @@ self_creation <-
         athlete_position_name, 
         team_name
       ), 
-    by = c("participants_0_athlete_id" = "athlete_id")
+    by = c("athlete_id_1" = "athlete_id")
   )
 
 
