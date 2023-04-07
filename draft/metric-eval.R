@@ -29,12 +29,12 @@ agg_stats <-
   ) %>%
   ungroup() %>%
   mutate(
-    reb_30 = round(a_reb * 30 / mp, 3), 
-    stl_30 = round(a_stl * 30 / mp, 3), 
-    blk_30 = round(a_blk * 30 / mp, 3), 
-    tov_30 = round(a_tov * 30 / mp, 3), 
-    ast_30 = round(a_ast * 30 / mp, 3), 
-    ft_30 = round(a_ft * 30 / mp, 3)
+    reb_30 = round(a_reb * 30 / (mp / gp), 3), 
+    stl_30 = round(a_stl * 30 / (mp / gp), 3), 
+    blk_30 = round(a_blk * 30 / (mp / gp), 3), 
+    tov_30 = round(a_tov * 30 / (mp / gp), 3), 
+    ast_30 = round(a_ast * 30 / (mp / gp), 3), 
+    ft_30 = round(a_ft * 30 / (mp / gp), 3)
   ) %>%
   mutate(
     activity = a_stl + a_blk, 
@@ -171,7 +171,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Dariq Whitehead", "Brice Sensabaugh", "Jalen Hood-Schifino", "Colby Jones")
+    athlete_display_name %in% c("Gradey Dick", "Jordan Hawkins", "Jett Howard", "Keyonte George")
   )
 
 
@@ -196,7 +196,7 @@ agg_stats %>%
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Gradey Dick", "Jett Howard", "Jordan Hawkins", "Keyonte George")
+    athlete_display_name %in% c("Dariq Whitehead", "Brice Sensabaugh", "Jalen Hood-Schifino", "Colby Jones")
   )
 
 # REBOUNDING
@@ -215,7 +215,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Gradey Dick", "Jett Howard", "Jordan Hawkins", "Keyonte George")
+    athlete_display_name %in% c("Dariq Whitehead", "Brice Sensabaugh", "Jalen Hood-Schifino", "Colby Jones")
   )
 
 
