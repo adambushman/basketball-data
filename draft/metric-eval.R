@@ -81,7 +81,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -126,7 +126,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
 
 # JUMP SHOTS
@@ -171,7 +171,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
 
 
@@ -193,10 +193,11 @@ agg_stats %>%
     a_stl, 
     stl_30, 
     activity, 
+    activity_30, 
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
 
 # REBOUNDING
@@ -215,7 +216,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
 
 
@@ -239,7 +240,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
 
 # FREE THROWS
@@ -262,5 +263,5 @@ agg_stats %>%
     ftR_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker", "Noah Clowney")
+    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
   )
