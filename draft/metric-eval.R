@@ -91,7 +91,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -136,7 +136,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
+    athlete_display_name %in% c("Andre Jackson Jr.", "Terrence Shannon Jr.")
   )
 
 # JUMP SHOTS
@@ -181,7 +181,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )
 
 # THREES
@@ -207,7 +207,7 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )
 
 
@@ -234,7 +234,7 @@ agg_stats %>%
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )
 
 # REBOUNDING
@@ -254,7 +254,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Anthony Black", "Cason Wallace")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )
 
 
@@ -279,7 +279,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Anthony Black", "Cason Wallace")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )
 
 # FREE THROWS
@@ -287,7 +287,10 @@ agg_stats %>%
 agg_stats %>%
   filter((gp * mp) > 100) %>%
   mutate(
-    a_ftR = round(a_ft / a_fga, 3)
+    a_ftR = round(a_ft / a_fga, 3), 
+    ftR_perc = percent_rank(a_ftR), 
+    ftp_perc = percent_rank(a_ftp), 
+    dist_avg = round((l_ftp - a_ftp) * (a_ft * gp), 1)
   ) %>%
   group_by(athlete_position_name) %>%
   mutate(
@@ -300,8 +303,10 @@ agg_stats %>%
     a_ft, 
     ft_30, 
     a_ftR,
-    ftR_perc
+    ftR_perc, 
+    a_ftp, 
+    dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
+    athlete_display_name %in% c("Baba Miller", "Kyle Filipowski")
   )

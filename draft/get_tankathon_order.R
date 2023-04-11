@@ -8,10 +8,11 @@ library('stringr')
 clean_teams <- function(team, type) {
   len = str_length(team)
   trailing = str_detect(str_sub(team, len-3, len), " ")
-  
+
   if(trailing) {
     team = str_trim(str_sub(team, 1, len-3), side = "right")
   }
+  team = str_trim(str_sub(team, 1, len-3), side = "right")
   
   if(str_detect(team, "Golden State")) {
     team = glue::glue("{team}W")
@@ -20,7 +21,7 @@ clean_teams <- function(team, type) {
     team = glue::glue("{team}S")
   }
   else if(str_detect(team, "New Orleans")) {
-    team = glue::glue("{team}W")
+    team = glue::glue("{team}P")
   }
   else if(str_detect(team, "New York")) {
     team = glue::glue("{team}K")
@@ -58,7 +59,7 @@ colnames(page_tabl) <- page_tabl[1,]
 cleaned_order <-
   page_tabl[2:nrow(page_tabl),] %>%
   janitor::clean_names() %>%
-  filter(pick != "" & pick != "END OF LOTTERY") %>%
+  filter(pick != "" & pick != "END OF LOTTERY") %>% print(n = nrow(.))
   mutate(
     abb = purrr::map_chr(team, clean_teams, type = 'abb'), 
     team_full = purrr::map_chr(team, clean_teams, type = 'full'), 

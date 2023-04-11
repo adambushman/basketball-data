@@ -134,9 +134,8 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
   board = tibble(
     pick = seq(1, 30), 
     team = c(
-      "HOU", "DET", "SAS", "CHA", "POR", "IND", "WAS", "ORL", "UTA", "DAL", 
-      "OKC", "ORL", "UTA", "TOR", "ATL", "NOP", "LAL", "HOU", "GSW", "MIA", 
-      "BKN", "BKN", "POR", "SAC", "IND", "MEM", "UTA", "CHA", "IND", "LAC"
+      'DET','SAS','HOU','CHA','POR','ORL','WAS','IND','UTA','DAL','OKC','ORL','TOR','NOP','ATL',
+      'UTA','LAL','MIA','HOU','GSW','BKN','BKN','POR','SAC','MEM','IND','CHA','UTA','IND','LAC'
     ), 
     prospect = c(partial_picks, rep(as.character(NA), 30 - pp_num))
   )
@@ -156,7 +155,7 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
       available <- 
         max_rank %>% 
         filter(!(Player %in% unavailable)) %>%
-        mutate(id = seq(1:nrow(.))) %>%
+        tibble::rowid_to_column("id") %>%
         select(id, Player)
       
       print(">>> Selected Picks <<<")
@@ -232,7 +231,7 @@ last_X = c(
 
 runDraft(
   c("UTA")
-  # , c(
+  # , c(``
   #     #first_X
   #     # , next_X
   #     # , last_X
