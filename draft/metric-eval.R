@@ -10,11 +10,17 @@ player_pbp <- hoopR::load_mbb_pbp()
 agg_stats <-
   player_stats %>%
   filter(!is.na(minutes)) %>%
+  mutate(
+    l_ftp = round(sum(free_throws_made) / sum(free_throws_attempted), 3), 
+    l_3pp = round(sum(three_point_field_goals_made) / sum(three_point_field_goals_attempted), 3)
+  ) %>%
   group_by(
     athlete_id, 
     athlete_display_name, 
     athlete_position_name, 
-    team_name
+    team_name, 
+    l_ftp, 
+    l_3pp
   ) %>%
   summarise(
     gp = n(), 
@@ -25,7 +31,11 @@ agg_stats <-
     a_blk = round(sum(blocks) / n(), 1), 
     a_ast = round(sum(assists) / n(), 1), 
     a_ft = round(sum(free_throws_attempted) / n(), 1), 
-    a_fga = round(sum(field_goals_attempted) / n(), 1)
+    a_fga = round(sum(field_goals_attempted) / n(), 1), 
+    a_3pa = round(sum(three_point_field_goals_attempted) / n(), 1), 
+    
+    a_ftp = round(sum(free_throws_made) / sum(free_throws_attempted), 3), 
+    a_3pp = round(sum(three_point_field_goals_made) / sum(three_point_field_goals_attempted), 3)
   ) %>%
   ungroup() %>%
   mutate(
@@ -81,7 +91,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -126,7 +136,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
   )
 
 # JUMP SHOTS
@@ -171,7 +181,33 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
+  )
+
+# THREES
+
+agg_stats %>%
+  filter((gp * mp) > 100) %>%
+  group_by(athlete_position_name) %>%
+  mutate(
+    a_3pR = round(a_3pa / a_fga, 3), 
+    x3pR_perc = percent_rank(a_3pR), 
+    x3pp_perc = percent_rank(a_3pp), 
+    dist_avg = round((l_3pp - a_3pp) * (a_3pa * gp), 1)
+  ) %>%
+  ungroup() %>%
+  select(
+    athlete_display_name:team_name, 
+    gp:mp, 
+    a_3pa, 
+    a_3pR, 
+    x3pR_perc, 
+    a_3pp, 
+    x3pp_perc, 
+    dist_avg
+  ) %>%
+  filter(
+    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
   )
 
 
@@ -187,7 +223,8 @@ agg_stats %>%
   ) %>%
   ungroup() %>%
   select(
-    athlete_display_name:mp, 
+    athlete_display_name:team_name, 
+    gp:mp, 
     a_blk, 
     blk_30, 
     a_stl, 
@@ -210,13 +247,14 @@ agg_stats %>%
   ) %>%
   ungroup() %>%
   select(
-    athlete_display_name:mp, 
+    athlete_display_name:team_name, 
+    gp:mp, 
     a_reb, 
     reb_30, 
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Anthony Black", "Cason Wallace")
   )
 
 
@@ -231,7 +269,8 @@ agg_stats %>%
   ) %>%
   ungroup() %>%
   select(
-    athlete_display_name:mp, 
+    athlete_display_name:team_name, 
+    gp:mp, 
     a_ast, 
     ast_30, 
     ast_perc, 
@@ -240,7 +279,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Anthony Black", "Cason Wallace")
   )
 
 # FREE THROWS
@@ -256,12 +295,13 @@ agg_stats %>%
   ) %>%
   ungroup() %>%
   select(
-    athlete_display_name:mp,
+    athlete_display_name:team_name, 
+    gp:mp, 
     a_ft, 
     ft_30, 
     a_ftR,
     ftR_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brandon Miller", "Cam Whitmore", "Gregory Jackson II", "Maxwell Lewis", "Kris Murray")
+    athlete_display_name %in% c("Terquavion Smith", "Nick Smith Jr.", "Kobe Bufkin")
   )
