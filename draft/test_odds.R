@@ -83,7 +83,7 @@ max_rank <-
   
 prob_board <-
   joined_rank %>%
-  group_by(Player) %>%
+  group_by(Rank) %>%
   summarise(
     prospects = list(Player), 
     probabilities = list(R_Freq), 
