@@ -148,7 +148,7 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
     
     left_over <-
       max_rank %>%
-      filter(m_pick < i & !(Player %in% unavailable))
+      filter(m_pick <= i & !(Player %in% unavailable))
     
     if(draft_order[i] %in% selection_teams) {
       # Pause for user entry
