@@ -1,5 +1,5 @@
-team_names <- sample(c('ATL', 'BOS', 'BKN', 'CHA', 'CHI', 'CLE', 'DAL', 'DEN', 'DET', 'GSW', 'HOU', 'IND', 'LAC', 'LAL', 'MEM', 'MIA', 'MIL', 'MIN', 'NOP', 'NYK', 'OKC', 'ORL', 'PHI', 'PHX', 'POR', 'SAC', 'SAS', 'TOR', 'UTA', 'WAS'), 30)
-win_totals <- sort(round(rnorm(30, 40, 12), 0))
+team_names <- lottery_order$abb
+win_totals <- lottery_order$order
 
 
 run_lottery <- function(teams, wins) {
@@ -47,7 +47,7 @@ run_lottery <- function(teams, wins) {
   while(length(final_order) < 4) {
     # Generate combo
     gen_combo <- sample(1:14, 4)
-    while(paste(sort(gen_combo), collapse = ",") == combos[1:4, 1001]) {
+    while(paste(sort(gen_combo), collapse = ",") == paste(combos[1:4, 1001], collapse = ",")) {
       gen_combo <- sample(1:14, 4)
     }
 
