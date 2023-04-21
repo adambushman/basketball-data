@@ -22,6 +22,10 @@ get_logo <- function(abb) {
   results
 }
 
+get_logo_chr <- function(abb) {
+  team_data$team_logo[team_data$team_abbreviation == abb]
+}
+
 get_pick_total <- function(abb) {
   abb = unlist(abb)
   sum(pick_total$pick_count[pick_total$team %in% abb])
@@ -38,7 +42,11 @@ draft_reps <- tibble::tibble(
     "Cooper Hird", "Bluedevilthoughts", "Leif Thulin", "colton: unofficial A's to Utah propaganda", "AJ", "Josh Roberts",
     "Mark", "Adam Bushman", "Cameron beta of alpha's"
   ),
-  teams = as.character(NA)
+  teams = c(
+    list(c("LAC", "LAL")), list(c("HOU", "MIL")), list(c("CLE", "WSH")), list(c("MEM", "SAC")), list(c("IND", "MIN")), 
+    list(c("DAL", "DEN")), list(c("BOS", "POR")), list(c("ATL", "MIA")), list(c("GS", "NO")), list(c("NY", "UTAH")), 
+    list(c("ORL", "PHX")), list(c("OKC", "SA")), list(c("CHA", "CHI")), list(c("DET", "TOR")), list(c("BKN", "PHI"))
+  )
 )
 
 pick_total <- tibble::tibble(
@@ -164,3 +172,86 @@ gtExtras::gt_two_column_layout(
   vwidth = 635, vheight = 765
 )
 
+
+#save(draft_reps, file = 'draft/2023_mock_assignments.rds')
+
+
+
+# Change it Up
+
+load('draft/2023_mock_assignments.rds')
+
+order <- tibble::tibble(
+  team = c(
+    "HOU", "CHA", "DET", "SA", "POR", "ORL", "IND", "WSH", "UTAH", "DAL", 
+    "ORL", "OKC", "TOR", "NO", "ATL", "UTAH", "LAL", "MIA", "GS", "HOU", 
+    "BKN", "BKN", "POR", "SAC", "MEM", "IND", "CHA", "UTAH", "IND", "LAC"
+  )
+) %>% 
+  tibble::rowid_to_column("pick") %>%
+  mutate(
+    # Trades
+    new_team = team, 
+    new_team = ifelse(pick == 12, "DAL", new_team), 
+    new_team = ifelse(pick == 20, "OKC", new_team), 
+    new_team = ifelse(pick %in% c(21, 22), "ATL", new_team), 
+    new_team = ifelse(pick == 15, "BKN", new_team), 
+    new_team = ifelse(pick == 17, "WSH", new_team), 
+    new_team = ifelse(pick == 22, "NO", new_team), 
+    new_team = ifelse(pick == 22, "NY", new_team), 
+    new_team = ifelse(pick == 14, "NY", new_team), 
+    new_team = ifelse(pick == 22, "UTAH", new_team), 
+    new_team = ifelse(pick == 28, "MIL", new_team)
+  )
+
+mock_order <-
+  order %>%
+  inner_join(
+    draft_reps %>% unnest(cols = c(teams)), 
+    by = c("new_team" = "teams")
+  ) %>%
+  mutate(
+    team_logos = purrr::map_chr(team, get_logo_chr), 
+    new_team_logos = purrr::map_chr(new_team, get_logo_chr)
+  ) %>%
+  mutate(
+    all_logos = unlist(purrr::map2(team_logos, new_team_logos, ~ ifelse(
+      .x != .y, 
+      glue::glue(
+        "<img src='{.x}' width=30 height=30 style='filter: grayscale(100%); opacity: 70%;'> &nbsp", 
+        "<img src='{.y}' width=30 height=30"
+      ), 
+      glue::glue(
+        "<img src='{.x}' width=30 height=30"
+      )
+    )))
+  ) %>%
+  select(pick, all_logos, rep_handle)
+
+
+mockStyle <- function(data) {
+  data %>%
+    mutate(all_logos = map(all_logos, gt::html)) %>%
+    gt() %>%
+    tab_header(
+      title = "Mock Draft Order"
+    ) %>%
+    cols_align(align = "right", columns = all_logos) %>%
+    gt::cols_label(
+      pick = "Pick #", 
+      all_logos = "Team", 
+      rep_handle = "Draft Rep"
+    ) %>%
+    tab_options(
+      column_labels.background.color = "black", 
+      heading.padding = 20
+    )
+}
+
+
+gtExtras::gt_two_column_layout(
+  gtExtras::gt_double_table(mock_order[16:30,], mockStyle, nrows = 8),
+  vwidth = 635, vheight = 765
+)
+
+# 540 x 560
