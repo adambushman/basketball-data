@@ -179,7 +179,7 @@ gtExtras::gt_two_column_layout(
 
 # Change it Up
 
-load('draft/2023_mock_assignments.rds')
+load('2023_mock_assignments.rds')
 
 order <- tibble::tibble(
   team = c(
@@ -201,8 +201,20 @@ order <- tibble::tibble(
     new_team = ifelse(pick == 22, "NY", new_team), 
     new_team = ifelse(pick == 14, "NY", new_team), 
     new_team = ifelse(pick == 22, "UTAH", new_team), 
-    new_team = ifelse(pick == 28, "MIL", new_team)
+    new_team = ifelse(pick == 28, "MIL", new_team), 
+    new_team = ifelse(pick == 7, "TOR", new_team), 
+    new_team = ifelse(pick == 3, "ORL", new_team), 
+    new_team = ifelse(pick == 6, "DET", new_team), 
+    new_team = ifelse(pick == 7, "UTAH", new_team),
+    new_team = ifelse(pick == 9, "TOR", new_team)
+  ) %>%
+  mutate(
+    selection = c(
+      "Victor Wembanyama", "Brandon Miller", "Scoot Henderson", "Amen Thompson", 
+      "Jarace Walker", "Cam Whitmore", "Ausar Thompson", rep("", 30-7)
+    )
   )
+
 
 mock_order <-
   order %>%
@@ -226,7 +238,7 @@ mock_order <-
       )
     )))
   ) %>%
-  select(pick, all_logos, rep_handle)
+  select(pick, all_logos, rep_handle, selection)
 
 
 mockStyle <- function(data) {
@@ -240,7 +252,8 @@ mockStyle <- function(data) {
     gt::cols_label(
       pick = "Pick #", 
       all_logos = "Team", 
-      rep_handle = "Draft Rep"
+      rep_handle = "Draft Rep", 
+      selection = "Selection"
     ) %>%
     tab_options(
       column_labels.background.color = "black", 
@@ -250,8 +263,7 @@ mockStyle <- function(data) {
 
 
 gtExtras::gt_two_column_layout(
-  gtExtras::gt_double_table(mock_order[16:30,], mockStyle, nrows = 8),
-  vwidth = 635, vheight = 765
+  gtExtras::gt_double_table(mock_order[16:30,], mockStyle, nrows = 8)
 )
 
 # 540 x 560
