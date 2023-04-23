@@ -179,7 +179,7 @@ gtExtras::gt_two_column_layout(
 
 # Change it Up
 
-load('2023_mock_assignments.rds')
+load('draft/2023_mock_assignments.rds')
 
 order <- tibble::tibble(
   team = c(
@@ -206,12 +206,17 @@ order <- tibble::tibble(
     new_team = ifelse(pick == 3, "ORL", new_team), 
     new_team = ifelse(pick == 6, "DET", new_team), 
     new_team = ifelse(pick == 7, "UTAH", new_team),
-    new_team = ifelse(pick == 9, "TOR", new_team)
+    new_team = ifelse(pick == 9, "TOR", new_team), 
+    new_team = ifelse(pick == 25, "CHI", new_team)
   ) %>%
   mutate(
     selection = c(
       "Victor Wembanyama", "Brandon Miller", "Scoot Henderson", "Amen Thompson", 
-      "Jarace Walker", "Cam Whitmore", "Ausar Thompson", rep("", 30-7)
+      "Jarace Walker", "Cam Whitmore", "Ausar Thompson", "Nick Smith Jr.", 
+      "Cason Wallace", "GG Jackson", "Taylor Hendricks", "Brice Sensabaugh", 
+      "Dariq Whitehead", "Gradey Dick", "Anthony Black", "Jett Howard", 
+      "Keyonte George", "Jordan Hawkins", "Leonard Miller", "Derick Lively II", 
+      "Sidy Cissoko", "Jalen Hood-Schifino", "Maxwell Lewis", rep("", 30-23)
     )
   )
 
