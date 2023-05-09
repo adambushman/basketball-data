@@ -29,6 +29,7 @@ agg_stats <-
     a_tov = round(sum(turnovers) / n(), 1), 
     a_stl = round(sum(steals) / n(), 1), 
     a_blk = round(sum(blocks) / n(), 1), 
+    a_foul = round(sum(fouls) / n(), 1), 
     a_ast = round(sum(assists) / n(), 1), 
     a_ft = round(sum(free_throws_attempted) / n(), 1), 
     a_fga = round(sum(field_goals_attempted) / n(), 1), 
@@ -42,12 +43,13 @@ agg_stats <-
     reb_30 = round(a_reb * 30 / (mp / gp), 3), 
     stl_30 = round(a_stl * 30 / (mp / gp), 3), 
     blk_30 = round(a_blk * 30 / (mp / gp), 3), 
+    foul_30 = round(a_foul * 30 / (mp / gp), 3), 
     tov_30 = round(a_tov * 30 / (mp / gp), 3), 
     ast_30 = round(a_ast * 30 / (mp / gp), 3), 
     ft_30 = round(a_ft * 30 / (mp / gp), 3)
   ) %>%
   mutate(
-    activity = a_stl + a_blk, 
+    activity = a_stl + a_blk - a_foul, 
     pass = a_ast / a_tov, 
     activity_30 = stl_30 + blk_30, 
     pass_30 = ast_30 / tov_30
@@ -91,7 +93,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Judah Mintz", "Trey Alexander", "Jaylen Clark", "Reece Beekman", "Mike Miles Jr.")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -136,7 +138,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Judah Mintz", "Trey Alexander", "Jaylen Clark", "Reece Beekman", "Mike Miles Jr.")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
 
 # JUMP SHOTS
@@ -181,7 +183,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Judah Mintz", "Trey Alexander", "Jaylen Clark", "Reece Beekman", "Mike Miles Jr.")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
 
 # THREES
@@ -207,7 +209,7 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Judah Mintz", "Trey Alexander", "Jaylen Clark", "Reece Beekman", "Mike Miles Jr.")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
 
 
@@ -217,7 +219,7 @@ agg_stats %>%
   filter((gp * mp) > 100) %>%
   group_by(athlete_position_name) %>%
   mutate(
-    activity_perc = percent_rank(activity), 
+    activity_perc = percent_rank(activity_30), 
     blk_perc = percent_rank(a_blk), 
     stl_perc = percent_rank(a_stl)
   ) %>%
@@ -225,16 +227,15 @@ agg_stats %>%
   select(
     athlete_display_name:team_name, 
     gp:mp, 
-    a_blk, 
     blk_30, 
-    a_stl, 
     stl_30, 
+    foul_30, 
     activity, 
     activity_30, 
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Judah Mintz", "Trey Alexander", "Jaylen Clark", "Reece Beekman", "Mike Miles Jr.")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
 
 
@@ -278,7 +279,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Judah Mintz", "Trey Alexander", "Jaylen Clark", "Reece Beekman", "Mike Miles Jr.")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
 
 # FREE THROWS
@@ -307,5 +308,5 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Brice Sensabaugh", "Gradey Dick")
+    athlete_display_name %in% c("Nick Smith Jr.")
   )
