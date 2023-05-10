@@ -93,7 +93,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -209,7 +209,7 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
   )
 
 
@@ -220,8 +220,9 @@ agg_stats %>%
   group_by(athlete_position_name) %>%
   mutate(
     activity_perc = percent_rank(activity_30), 
-    blk_perc = percent_rank(a_blk), 
-    stl_perc = percent_rank(a_stl)
+    blk_perc = percent_rank(blk_30), 
+    stl_perc = percent_rank(stl_30), 
+    foul_perc = percent_rank(foul_30)
   ) %>%
   ungroup() %>%
   select(
@@ -229,32 +230,33 @@ agg_stats %>%
     gp:mp, 
     blk_30, 
     stl_30, 
+    stl_perc, 
     foul_30, 
-    activity, 
+    foul_perc, 
     activity_30, 
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
   )
 
+# REBOUNDING
 
 agg_stats %>%
   filter((gp * mp) > 100) %>%
   group_by(athlete_position_name) %>%
   mutate(
-    reb_perc = percent_rank(a_reb)
+    reb_perc = percent_rank(reb_30)
   ) %>%
   ungroup() %>%
   select(
     athlete_display_name:team_name, 
     gp:mp, 
-    a_reb, 
     reb_30, 
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Brice Sensabaugh", "Gradey Dick")
+    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
   )
 
 

@@ -207,7 +207,9 @@ order <- tibble::tibble(
     new_team = ifelse(pick == 6, "DET", new_team), 
     new_team = ifelse(pick == 7, "UTAH", new_team),
     new_team = ifelse(pick == 9, "TOR", new_team), 
-    new_team = ifelse(pick == 25, "CHI", new_team)
+    new_team = ifelse(pick == 25, "CHI", new_team), 
+    new_team = ifelse(pick == 24, "IND", new_team), 
+    new_team = ifelse(pick == 26, "SAC", new_team)
   ) %>%
   mutate(
     selection = c(
@@ -216,7 +218,9 @@ order <- tibble::tibble(
       "Cason Wallace", "GG Jackson", "Taylor Hendricks", "Brice Sensabaugh", 
       "Dariq Whitehead", "Gradey Dick", "Anthony Black", "Jett Howard", 
       "Keyonte George", "Jordan Hawkins", "Leonard Miller", "Derick Lively II", 
-      "Sidy Cissoko", "Jalen Hood-Schifino", "Maxwell Lewis", rep("", 30-23)
+      "Sidy Cissoko", "Jalen Hood-Schifino", "Maxwell Lewis", "Rayan Rupert", 
+      "Kobe Bufkin", "Kris Murray", "Bilal Coulibaly", "Amari Bailey", 
+      "Julian Strawther", "Colby Jones"
     )
   )
 
@@ -262,13 +266,14 @@ mockStyle <- function(data) {
     ) %>%
     tab_options(
       column_labels.background.color = "black", 
-      heading.padding = 20
+      heading.padding = 20, 
+      data_row.padding = px(3)
     )
 }
 
 
 gtExtras::gt_two_column_layout(
-  gtExtras::gt_double_table(mock_order[16:30,], mockStyle, nrows = 8)
+  gtExtras::gt_double_table(mock_order, mockStyle, nrows = 15)
 )
 
 # 540 x 560
