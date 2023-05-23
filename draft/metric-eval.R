@@ -93,7 +93,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -138,7 +138,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 # JUMP SHOTS
@@ -183,7 +183,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 # THREES
@@ -209,7 +209,7 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 
@@ -230,14 +230,12 @@ agg_stats %>%
     gp:mp, 
     blk_30, 
     stl_30, 
-    stl_perc, 
     foul_30, 
-    foul_perc, 
     activity_30, 
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 # REBOUNDING
@@ -256,7 +254,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Taylor Hendricks", "Jarace Walker")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 
@@ -281,7 +279,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Colby Jones")
   )
 
 # FREE THROWS
@@ -310,5 +308,5 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Nick Smith Jr.")
+    athlete_display_name %in% c("Colby Jones")
   )
