@@ -18,9 +18,16 @@ long_rank <-
     values_to = "Player"
   ) %>%
   mutate(
+    Rank = as.integer(Rank), 
     Update = str_sub(Source, str_locate(Source, "\\|")[,1] + 2, str_length(Source)), 
     Source = str_sub(Source, 1, str_locate(Source, "\\|")[,1] - 2)
   )
+
+# Rankings summary
+
+long_rank %>% group_by(Player) %>% 
+  summarise(avg = mean(Rank), min = min(Rank), max = max(Rank)) %>% 
+  ungroup() %>% arrange(avg) %>% print(n = 40)
 
 # Sources
 sources <-
@@ -125,6 +132,27 @@ makeSelection <- function(pick, db) {
   else {
     return("EMPTY")
   }
+}
+
+
+run_partial_draft <- function(picks) {
+  unavailable = c()
+  
+  for(i in 1:picks) {
+    
+    left_over <-
+      max_rank %>%
+      filter(m_pick <= i & !(Player %in% unavailable))
+    
+    if(nrow(left_over) > 0) {
+      unavailable[length(unavailable)+1] = left_over$Player[1]
+    }
+    else {
+      unavailable[length(unavailable)+1] = makeSelection(i, unavailable)
+    }
+  }
+  
+  return(unavailable)
 }
 
 
