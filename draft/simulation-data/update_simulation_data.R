@@ -15,11 +15,7 @@ long_rank <-
     names_to = "Source", 
     values_to = "Player"
   ) %>%
-  mutate(
-    Rank = as.integer(Rank), 
-    Update = str_sub(Source, str_locate(Source, "\\|")[,1] + 2, str_length(Source)), 
-    Source = str_sub(Source, 1, str_locate(Source, "\\|")[,1] - 2)
-  )
+  mutate(Rank = as.integer(Rank))
 
 # Rankings summary
 
@@ -28,9 +24,9 @@ summary <- long_rank %>% group_by(Player) %>%
   ungroup() %>% arrange(avg)
 
 # Sources
-sources <-
+sources <- 
   long_rank %>%
-  select(Source, Update) %>%
+  select(Source) %>%
   distinct()
 
 # Real rankings
