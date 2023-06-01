@@ -23,9 +23,9 @@ long_rank <-
 
 # Rankings summary
 
-long_rank %>% group_by(Player) %>% 
+summary <- long_rank %>% group_by(Player) %>% 
   summarise(avg = mean(Rank), min = min(Rank), max = max(Rank)) %>% 
-  ungroup() %>% arrange(avg) %>% print(n = 40)
+  ungroup() %>% arrange(avg)
 
 # Sources
 sources <-
@@ -97,6 +97,11 @@ prob_board <-
   ) %>%
   ungroup()
 
-
+# Saving the average rank
+write.csv(summary, "draft/simulation-data/2023_avg_board.csv", row.names = FALSE)
+# Saving the sources
+write.csv(sources, "draft/simulation-data/2023_sources.csv", row.names = FALSE)
+# Saving the max rank
 write.csv(max_rank, "draft/simulation-data/2023_max_rank.csv", row.names = FALSE)
+# Saving the probability board
 jsonlite::write_json(prob_board, "draft/simulation-data/2023_probability_board.json")
