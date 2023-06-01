@@ -55,9 +55,9 @@ run_odds_draft <- function(targets) {
 }
 
 players <- list(
-  "9" = "Taylor Hendricks", 
-  "16" = "Jalen Hood-Schifino"#, 
-  #"28" = "Dariq Whitehead"
+  "9" = "Cam Whitmore", 
+  "16" = "GG Jackson", 
+  "28" = "Dariq Whitehead"
 )
 
 results = c()

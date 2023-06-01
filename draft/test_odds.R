@@ -3,105 +3,8 @@ library('gt')
 library('gtExtras')
 library('stringr')
 
-my_data <- 
-  read_csv(
-    #url('https://raw.githubusercontent.com/adambushman/basketball-data/master/draft/2023_Industry_Boards.csv')
-    "draft/2023_Industry_Boards.csv"
-  )
-
-# Long rankings
-long_rank <- 
-  my_data %>%
-  pivot_longer(
-    cols = -Rank, 
-    names_to = "Source", 
-    values_to = "Player"
-  ) %>%
-  mutate(
-    Rank = as.integer(Rank), 
-    Update = str_sub(Source, str_locate(Source, "\\|")[,1] + 2, str_length(Source)), 
-    Source = str_sub(Source, 1, str_locate(Source, "\\|")[,1] - 2)
-  )
-
-# Rankings summary
-
-long_rank %>% group_by(Player) %>% 
-  summarise(avg = mean(Rank), min = min(Rank), max = max(Rank)) %>% 
-  ungroup() %>% arrange(avg) %>% print(n = 40)
-
-# Sources
-sources <-
-  long_rank %>%
-  select(Source, Update) %>%
-  distinct()
-
-# Real rankings
-real_rank <-
-  long_rank %>%
-  group_by(Rank, Player) %>%
-  summarise(Freq = n()) %>%
-  ungroup() %>%
-  filter(!is.na(Player))
-
-# Full rankings
-full_rank <-
-  real_rank %>%
-  group_by(Player) %>%
-  reframe(
-    Rank = seq(min(Rank), max(Rank)), 
-    Default = 0.5
-  ) %>%
-  arrange(Rank) %>%
-  select(Rank, Player, Default)
-
-# Joined rankings
-joined_rank <-
-  left_join(
-    full_rank, 
-    real_rank,
-    by = c("Rank", "Player")
-  ) %>%
-  mutate(
-    F_Freq = coalesce(Default, 0) + coalesce(Freq, 0)
-  ) %>%
-  group_by(Rank) %>%
-  mutate(
-    R_Freq = F_Freq / sum(F_Freq)
-  )
-
-# Lowest rank
-max_rank <-
-  long_rank %>% 
-  group_by(Player) %>%
-  summarise(
-    n_rank = n(), 
-    rows = nrow(my_data), 
-    maxx = max(Rank)
-  ) %>% 
-  ungroup() %>%
-  rowwise() %>%
-  mutate(
-    m_pick = case_when(
-      n_rank < 2 ~ rows, 
-      TRUE ~ min(c(maxx, rows))
-    )
-  ) %>%
-  arrange(m_pick)
-  
-  
-prob_board <-
-  joined_rank %>%
-  group_by(Rank) %>%
-  summarise(
-    prospects = list(Player), 
-    probabilities = list(R_Freq), 
-    min_rank = list(min(Rank))
-  ) %>%
-  ungroup()
-  
-
-
-
+max_rank <- read.csv("draft/simulation-data/2023_max_rank.csv")
+prob_board <- jsonlite::fromJSON("draft/simulation-data/2023_probability_board.json")
 
 makeSelection <- function(pick, db) {
   # Get available prospects & probs for pick
@@ -163,7 +66,7 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
   board = tibble(
     pick = seq(1, 30), 
     team = c(
-      'DET','SAS','HOU','CHA','POR','ORL','WAS','IND','UTA','DAL','OKC','ORL','TOR','NOP','ATL',
+      'SAS','CHA','POR','HOU','DET','ORL','WAS','IND','UTA','DAL','OKC','ORL','TOR','NOP','ATL',
       'UTA','LAL','MIA','HOU','GSW','BKN','BKN','POR','SAC','MEM','IND','CHA','UTA','IND','LAC'
     ), 
     prospect = c(partial_picks, rep(as.character(NA), 30 - pp_num))
@@ -190,7 +93,7 @@ runDraft <- function(selection_teams = c(), partial_picks = c(), user) {
       print(">>> Selected Picks <<<")
       board %>% filter(!is.na(prospect)) %>% print(n = nrow(.))
       print(">>> Available Prospects <<<")
-      available %>% arrange(-id) %>% print(n = nrow(.))
+      print(available %>% arrange(-id))
       
       print(glue::glue(">>> {draft_order[i]} is on the clock at #{i} <<<"))
       selection = readline("Make your selection. Enter a number corresponding to the player above:")
