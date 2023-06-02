@@ -3,8 +3,8 @@ library('jsonlite')
 
 my_data <- 
   read_csv(
-    #url('https://raw.githubusercontent.com/adambushman/basketball-data/master/draft/2023_Industry_Boards.csv')
-    "draft/2023_Industry_Boards.csv"
+    url('https://raw.githubusercontent.com/adambushman/basketball-data/master/draft/2023_Industry_Boards.csv')
+    #"draft/2023_Industry_Boards.csv"
   )
 
 # Long rankings

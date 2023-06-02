@@ -1,70 +1,70 @@
 "Player","n_rank","rows","maxx","m_pick"
-"Victor Wembanyama",9,62,1,1
-"Brandon Miller",9,62,4,4
-"Scoot Henderson",9,62,4,4
-"Amen Thompson",9,62,9,9
-"Cam Whitmore",9,62,9,9
-"Jarace Walker",9,62,9,9
-"Ausar Thompson",9,62,10,10
-"Taylor Hendricks",9,62,14,14
-"Anthony Black",9,62,16,16
-"Cason Wallace",9,62,17,17
-"Keyonte George",9,62,18,18
-"Gradey Dick",9,62,19,19
-"Dereck Lively II",9,62,20,20
-"Kobe Bufkin",9,62,22,22
-"Jett Howard",9,62,24,24
-"Jordan Hawkins",9,62,25,25
-"Brice Sensabaugh",9,62,27,27
-"Leonard Miller",9,62,29,29
-"Kris Murray",9,62,30,30
-"Bilal Coulibaly",9,62,33,33
-"Colby Jones",8,62,33,33
-"GG Jackson",9,62,33,33
-"Maxwell Lewis",9,62,34,34
-"Dariq Whitehead",9,62,35,35
-"Nick Smith Jr.",9,62,36,36
-"Rayan Rupert",9,62,36,36
-"Noah Clowney",9,62,37,37
-"Olivier-Maxence Prosper",4,62,40,40
-"Jalen Hood-Schifino",9,62,41,41
-"Sidy Cissoko",9,62,41,41
-"James Nnaji",9,62,42,42
-"Brandin Podziemski",6,62,44,44
+"Victor Wembanyama",10,62,1,1
+"Brandon Miller",10,62,4,4
+"Scoot Henderson",10,62,4,4
+"Amen Thompson",10,62,9,9
+"Cam Whitmore",10,62,9,9
+"Jarace Walker",10,62,9,9
+"Ausar Thompson",10,62,10,10
+"Taylor Hendricks",10,62,14,14
+"Anthony Black",10,62,16,16
+"Cason Wallace",10,62,17,17
+"Keyonte George",10,62,18,18
+"Gradey Dick",10,62,19,19
+"Dereck Lively II",10,62,20,20
+"Kobe Bufkin",10,62,22,22
+"Jett Howard",10,62,24,24
+"Jordan Hawkins",10,62,25,25
+"Brice Sensabaugh",10,62,27,27
+"Leonard Miller",10,62,29,29
+"Kris Murray",10,62,30,30
+"Bilal Coulibaly",10,62,33,33
+"Colby Jones",9,62,33,33
+"GG Jackson",10,62,33,33
+"Maxwell Lewis",10,62,34,34
+"Dariq Whitehead",10,62,35,35
+"Nick Smith Jr.",10,62,36,36
+"Rayan Rupert",10,62,36,36
+"Noah Clowney",10,62,37,37
+"Jalen Hood-Schifino",11,62,41,41
+"James Nnaji",10,62,42,42
+"Brandin Podziemski",7,62,44,44
+"Sidy Cissoko",10,62,44,44
 "Mike Miles Jr.",3,62,47,47
-"Tristan Vukcevic",3,62,47,47
+"Tristan Vukcevic",4,62,47,47
 "Trey Alexander",5,62,48,48
-"Jordan Walsh",8,62,49,49
-"Amari Bailey",6,62,50,50
-"Terquavion Smith",9,62,50,50
-"Jaylen Clark",4,62,51,51
+"Jordan Walsh",9,62,49,49
+"Amari Bailey",7,62,50,50
+"Terquavion Smith",10,62,50,50
 "Kevin McCullar Jr.",4,62,51,51
 "Adem Bona",6,62,52,52
-"Marcus Sasser",9,62,52,52
-"Bobi Klintman",7,62,53,53
-"Jaime Jaquez Jr.",10,62,53,53
-"Ricky Council IV",4,62,53,53
-"Andre Jackson",9,62,54,54
-"Toumani Camara",2,62,54,54
-"Trayce Jackson-Davis",9,62,54,54
+"Marcus Sasser",10,62,52,52
+"Seth Lundy",2,62,52,52
+"Bobi Klintman",8,62,53,53
+"Jaime Jaquez Jr.",11,62,53,53
+"Ricky Council IV",5,62,53,53
+"Andre Jackson",10,62,54,54
+"Toumani Camara",3,62,54,54
+"Trayce Jackson-Davis",10,62,54,54
 "D'Moi Hodge",2,62,55,55
 "DaRon Holmes II",8,62,55,55
 "Jalen Slawson",2,62,55,55
 "Judah Mintz",5,62,55,55
-"Kobe Brown",7,62,55,55
+"Kobe Brown",8,62,55,55
 "Coleman Hawkins",3,62,56,56
-"Jalen Wilson",8,62,56,56
-"Jordan Miller",3,62,56,56
-"Julian Phillips",8,62,56,56
-"Julian Strawther",9,62,56,56
+"Jalen Wilson",9,62,56,56
+"Jaylen Clark",5,62,56,56
+"Jordan Miller",4,62,56,56
+"Julian Phillips",9,62,56,56
+"Julian Strawther",10,62,56,56
 "Terrence Shannon Jr.",8,62,56,56
 "Drew Timme",2,62,57,57
-"Olivier Maxence-Prosper",5,62,57,57
+"Olivier-Maxence Prosper",10,62,57,57
 "Zach Edey",4,62,57,57
-"Ben Sheppard",6,62,58,58
+"Ben Sheppard",7,62,58,58
 "Dillon Mitchell",4,62,58,58
-"Keyontae Johnson",6,62,58,58
-"Mouhamed Gueye",3,62,58,58
+"Keyontae Johnson",7,62,58,58
+"Mouhamed Gueye",4,62,58,58
 "Reece Beekman",5,62,58,58
 "Isaiah Wong",3,62,59,59
 "Nikola Djurisic",3,62,60,60
@@ -72,20 +72,22 @@
 "Adama Sanogo",1,62,56,62
 "Arthur Kaluma",1,62,43,62
 "Dillon Jones",1,62,58,62
-"Emoni Bates",6,62,62,62
+"Emoni Bates",7,62,62,62
 "Grant Nelson",1,62,49,62
 "Hunter Tyson",1,62,57,62
-"Jalen Hood Schifino",1,62,17,62
 "Jalen Pickett",1,62,61,62
 "Jazian Gortman",1,62,57,62
 "Juan Nunez",1,62,50,62
+"Mojave King",1,62,52,62
 "Nae'Qwan Tomlin",1,62,53,62
 "Omari Moore",1,62,51,62
+"Oscar Tshibwe",1,62,58,62
 "Oso Ighodaro",1,62,49,62
 "Ousmane N'Diaye",1,62,43,62
 "Riley Kugel",1,62,32,62
 "Ryan Kalkbrenner",1,62,45,62
-"Seth Lundy",1,62,52,62
+"Sir'Jabari Rice",1,62,57,62
+"Tosan Evbuowan",1,62,54,62
 "Tucker DeVries",1,62,34,62
 "Tyler Burton",1,62,40,62
-NA,52,62,62,62
+NA,56,62,62,62
