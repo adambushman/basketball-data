@@ -2,9 +2,9 @@ library('tidyverse')
 
 results = list()
 
-interested = c("Jarace Walker", "Cam Whitmore", "Ausar Thompson", "Amen Thompson")
+interested = c("Cam Whitmore")
 
-for(j in 1:1000) {
+for(j in 1:100) {
   picks = run_partial_draft(8)
   available = setdiff(interested, picks)
   if(length(available) > 0) {
@@ -38,7 +38,7 @@ run_odds_draft <- function(targets) {
       filter(m_pick <= i & !(Player %in% unavailable))
     
     if(as.character(i) %in% names(targets)) {
-      if(targets[[as.character(i)]] %in% unavailable) {
+      if(length(setdiff(targets[[as.character(i)]], unavailable)) == 0) {
         return(FALSE)
       }
     }
@@ -55,17 +55,29 @@ run_odds_draft <- function(targets) {
 }
 
 players <- list(
-  "9" = "Cam Whitmore", 
-  "16" = "GG Jackson", 
-  "28" = "Dariq Whitehead"
+  "9" = c("Ausar Thompson", "Cam Whitmore"), 
+  "16" = c("Jalen Hood-Schifino", "GG Jackson"), 
+  "28" = c("Dariq Whitehead", "Dereck Lively II")
 )
 
 results = c()
 
-for(i in 1:100) {
+for(i in 1:500) {
   results[length(results) + 1] = run_odds_draft(players)
 }
 
 length(results[results])/length(results)
 
 
+
+# Try to figure out a better way to estimate the probability players are available at a spot
+
+prob_board %>% 
+  unnest_longer(c(prospects, probabilities, min_rank)) %>%
+  filter(prospects %in% c("Cason Wallace", "Jalen Hood-Schifino", "Kobe Bufkin")) %>%
+  mutate(
+    thresh = ifelse(Rank < 9, "Before", "After"), 
+    thresh = factor(thresh, levels = c("Before", "After"))
+  ) %>%
+  group_by(thresh) %>%
+  summarise(total_prob = sum(probabilities))
