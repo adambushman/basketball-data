@@ -1,84 +1,91 @@
 "Player","avg","min","max"
 "Victor Wembanyama",1,1,1
 "Scoot Henderson",2.4,2,3
-"Brandon Miller",2.8,2,4
-"Amen Thompson",4.4,3,7
-"Cam Whitmore",5,4,7
-"Jarace Walker",6.4,4,8
-"Ausar Thompson",7,6,8
-"Anthony Black",8,6,10
-"Taylor Hendricks",9.2,6,14
-"Gradey Dick",11.4,9,18
-"Cason Wallace",11.8,8,17
-"Dereck Lively II",15.1,10,26
-"Keyonte George",15.3,10,22
-"Nick Smith Jr.",15.7,9,26
-"Bilal Coulibaly",15.9,11,33
-"Jalen Hood-Schifino",16.1,9,21
-"Kobe Bufkin",16.4,12,22
-"Jordan Hawkins",18,13,22
-"Jett Howard",18.4,11,27
-"Leonard Miller",21.4,12,31
-"Brice Sensabaugh",22.8,14,30
-"Maxwell Lewis",23.1,15,30
-"Dariq Whitehead",23.8,16,35
-"Kris Murray",24.1,16,30
-"GG Jackson",26.2,16,33
-"Noah Clowney",26.2,15,35
-"Brandin Podziemski",27.2222222222222,18,39
-"Rayan Rupert",28.2,18,36
-"Colby Jones",28.6666666666667,19,48
-"James Nnaji",30.3,22,42
-"Sidy Cissoko",31.9,21,43
+"Brandon Miller",2.9,2,4
+"Amen Thompson",4.7,3,7
+"Cam Whitmore",4.7,3,7
+"Jarace Walker",6.2,4,7
+"Ausar Thompson",6.8,5,9
+"Anthony Black",8.2,6,10
+"Taylor Hendricks",9.5,7,14
+"Cason Wallace",11.9,8,17
+"Gradey Dick",12,9,18
+"Dereck Lively II",13.3,10,19
+"Bilal Coulibaly",13.9,11,20
+"Jalen Hood-Schifino",15.6,9,21
+"Kobe Bufkin",15.6,11,22
+"Keyonte George",16.9,10,26
+"Nick Smith Jr.",16.9,9,26
+"Jordan Hawkins",17.6,13,22
+"Jett Howard",19.4,11,27
+"Leonard Miller",20.9,13,27
+"Maxwell Lewis",23.5,15,35
+"Brice Sensabaugh",24.1,14,32
+"Dariq Whitehead",24.5,16,35
+"Kris Murray",24.5,17,30
+"Noah Clowney",26.5,20,35
+"GG Jackson",27.3,16,36
+"Brandin Podziemski",27.8888888888889,18,42
+"Rayan Rupert",29.1,18,36
+"Ben Sheppard",29.5555555555556,22,41
+"Colby Jones",29.6666666666667,19,48
+"Olivier-Maxence Prosper",29.9,18,43
+"James Nnaji",31.3,22,42
 "Riley Kugel",32,32,32
-"Ben Sheppard",32.3333333333333,22,41
-"Jaime Jaquez Jr.",33.8,23,46
-"Olivier-Maxence Prosper",33.9,18,43
+"Sidy Cissoko",32.8,21,44
+"Jaime Jaquez Jr.",33.1,23,46
+"Trayce Jackson=Davis",34,34,34
 "Tucker DeVries",34,34,34
-"Marcus Sasser",35.9,25,43
-"Trayce Jackson-Davis",36.6,28,47
-"Julian Strawther",37.6,31,48
-"Tristan Vukcevic",37.7142857142857,35,43
-"Andre Jackson",38,31,49
-"Julian Phillips",38.6,33,47
-"Amari Bailey",38.7777777777778,28,47
+"Marcus Sasser",35.3,25,43
+"Trayce Jackson-Davis",35.6666666666667,28,45
+"Andre Jackson",38,29,49
+"Julian Strawther",38.4,31,47
+"Julian Phillips",38.5,33,47
+"Amari Bailey",39,28,47
 "Tyler Burton",39,39,39
 "Reece Beekman",40,40,40
-"Jordan Walsh",40.5,34,53
-"Terquavion Smith",40.5,31,61
+"Jordan Walsh",40.4,34,53
+"Tristan Vukcevic",41.5,36,58
+"Kobe Brown",41.8888888888889,30,49
 "Ousmane N'Diaye",42,42,42
-"Kobe Brown",42.7777777777778,34,49
-"Jalen Pickett",44,36,52
-"Jalen Wilson",44.4,34,51
-"Seth Lundy",45.4285714285714,33,53
-"Chris Livingston",46,46,46
+"Terquavion Smith",42.1,31,61
+"Jalen Wilson",44.4,36,51
+"Seth Lundy",45.25,33,53
 "Nikola Djurisic",46.5,38,54
 "Keyontae Johnson",47.2222222222222,33,69
-"Jaylen Clark",47.6666666666667,40,58
-"Mike Miles Jr.",48.5,43,59
-"Adama Sanogo",49,45,53
+"Jalen Pickett",48.25,36,55
 "Hunter Tyson",49,49,49
-"Mouhamed Gueye",49.75,45,55
+"Jaylen Clark",49.2857142857143,40,58
+"Chris Lingston",50,50,50
 "Drew Timme",50,50,50
-"Emoni Bates",50,45,56
-"Isaiah Wong",50.25,46,56
-"Azuolas Tubelis",50.3333333333333,44,57
-"Mojave King",51,51,51
-"Jordan Miller",51.2857142857143,46,58
-"Ricky Council IV",51.4285714285714,44,63
-"Tosan Evbuowan",53,53,53
-"Toumani Camara",53.8,48,57
+"Adama Sanogo",50.6,45,57
+"Ricky Council IV",50.8888888888889,43,63
+"Mike Miles Jr.",51.2,43,62
+"Colin Castleton",51.6,45,59
+"Isaiah Wong",52,46,59
+"Mouhamed Gueye",52,45,63
+"Emoni Bates",52.4444444444444,45,69
+"Jordan Miller",52.5,46,58
+"Chris Livingston",53,46,60
+"Azuolas Tubelis",54,44,65
 "Charles Bediako",54,54,54
-"Colin Castleton",54,49,59
-"Jalen Slawson",54,49,58
-"Adam Flagler",54.25,49,60
+"Nadir Hifi",54,54,54
+"Tosan Evbuomwan",54,54,54
 "D'Moi Hodge",54.5,52,57
-"Omari Moore",55.5,45,66
-"Oscar Tshiebwe",56,55,57
+"Jalen Slawson",54.5,49,58
+"Adam Flagler",55,52,60
+"Omari Moore",55,44,66
+"Toumani Camara",56,49,67
+"Oscar Tshiebwe",56.3333333333333,55,58
+"Drem Timme",57,57,57
 "Jazian Gortman",57.5,55,60
-"Sir'Jabari Rice",57.6666666666667,53,64
-NA,61.7307692307692,51,69
+"Sir'Jabari Rice",58.75,53,64
+"Mojave King",60,56,64
 "Justyn Mutts",62,62,62
 "Craig Porter Jr.",63,59,67
+NA,63.2522522522523,51,70
 "Landers Nolley",65,65,65
+"Liam Robbins",66,66,66
+"Darious McGhee",68,68,68
 "Juan Nunez",68,68,68
+"Lander Nolley II",70,70,70
