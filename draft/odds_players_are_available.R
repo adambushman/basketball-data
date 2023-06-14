@@ -55,9 +55,9 @@ run_odds_draft <- function(targets) {
 }
 
 players <- list(
-  "9" = c("Ausar Thompson", "Cam Whitmore"), 
-  "16" = c("Jalen Hood-Schifino", "GG Jackson"), 
-  "28" = c("Dariq Whitehead", "Dereck Lively II")
+  #"9" = c("Ausar Thompson", "Cam Whitmore", "Jarace Walker", "Taylor Hendricks", "Anthony Black")#, 
+  #"16" = c("Jalen Hood-Schifino", "Cason Wallace", "Kobe Bufkin", "Bilal Coulibaly", "Keyonte George")#, 
+  "28" = c("Dariq Whitehead", "GG Jackson", "Maxwell Lewis", "Colby Jones", "Andre Jackson")
 )
 
 results = c()
@@ -66,7 +66,7 @@ for(i in 1:500) {
   results[length(results) + 1] = run_odds_draft(players)
 }
 
-length(results[results])/length(results)
+length(results[results])#/length(results)
 
 
 
