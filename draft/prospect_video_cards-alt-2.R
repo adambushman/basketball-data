@@ -28,7 +28,7 @@ art_data <-
     by = c("Name" = "Player")
   ) %>%
   left_join(
-    readxl::read_xlsx('C:/Users/Adam Bushman/Documents/R/jabber-jazz-content-notes/master_files/2023_draft_big_boards.xlsx', sheet = "Adam-Bushman"), 
+    readxl::read_xlsx('C:/Users/Adam Bushman/Documents/R/jabber-jazz-content-notes/master_files/2023_draft_big_boards.xlsx', sheet = "Adam-Bushman") %>% select(name, pp = pick), 
     by = c("Name" = "name")
   ) %>%
   select(
@@ -42,7 +42,7 @@ art_data <-
     color, 
     pick = Pick, 
     industry = avg, 
-    prev = pick, 
+    prev = pp, 
     tier = Tier
   )
 
@@ -198,7 +198,7 @@ generate_art <- function(obj) {
     annotate(
       "text", x = 1650, y = 125, size = 5, hjust = 0.5,
       color = contrast_text_color(pluck(obj, "color")), 
-      label = ifelse(is.null(pluck(obj, "prev_pick")), "-", paste0("#", pluck(obj, "prev_pick")))
+      label = ifelse(is.na(pluck(obj, "prev")), "-", paste0("#", pluck(obj, "prev")))
     ) +
     annotate(
       "text", x = 1650, y = 50, size = 3, hjust = 0.5,
