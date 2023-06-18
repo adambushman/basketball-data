@@ -6,7 +6,7 @@ names(players_data)
 my_data <- readxl::read_xlsx(
   "C:/Users/Adam Bushman/Dropbox (HFC)/Jabber Jazz Podcast/Draft/2023 Board.xlsx", 
   skip = 3
-)
+) %>% head(44)
 
 art_data <- 
   my_data %>%
@@ -23,6 +23,14 @@ art_data <-
       distinct(), 
     by = c("name" = "name")
   ) %>%
+  left_join(
+    summary, 
+    by = c("Name" = "Player")
+  ) %>%
+  left_join(
+    readxl::read_xlsx('C:/Users/Adam Bushman/Documents/R/jabber-jazz-content-notes/master_files/2023_draft_big_boards.xlsx', sheet = "Adam-Bushman"), 
+    by = c("Name" = "name")
+  ) %>%
   select(
     name = Name, 
     club = Club, 
@@ -33,6 +41,8 @@ art_data <-
     headshot, 
     color, 
     pick = Pick, 
+    industry = avg, 
+    prev = pick, 
     tier = Tier
   )
 
@@ -40,6 +50,7 @@ art_data <-
 art_data <-
   art_data %>%
   mutate(
+    industry = as.integer(industry), 
     age = paste0(age, " yrs"), 
     logo = case_when(
       club == "Metropolitans92" ~ "https://upload.wikimedia.org/wikipedia/en/2/2a/Metropolitans_92_logo.png", 
@@ -51,6 +62,13 @@ art_data <-
       TRUE ~ logo
     ), 
     headshot = case_when(
+      name == "Victor Wembanyama" ~ "https://img.besport.com/256/mUwcwildVZObhOgnG3BpHFDqvL4", 
+      name == "Scoot Henderson" ~ "https://www.nbadraft.net/wp-content/uploads/2021/04/Scoot-Henderson-2.png", 
+      name == "Amen Thompson" ~ "https://images.overtime.tv/ote-games/23a42d64-4196-4306-8681-dc2a7a0442a6/9e610f90-deef-4b45-adbb-d1f17efa3997.webp", 
+      name == "Leonard Miller" ~ "https://a.espncdn.com/i/headshots/nbadraft/players/full/106227.png", 
+      name == "Sidy Cissoko" ~ "https://www.nbadraft.net/wp-content/uploads/2022/02/Cidy-Sissoko.png", 
+      name == "James Nnaji" ~ "https://res.cloudinary.com/djcqmdgda/image/upload/nba/prospects/headshots/106566.png", 
+      name == "Rayan Rupert" ~ "https://res.cloudinary.com/djcqmdgda/image/upload/nba/prospects/headshots/106551.png", 
       name == "Ausar Thompson" ~ "https://images.overtime.tv/ote-games/23a42d64-4196-4306-8681-dc2a7a0442a6/f3aeb0f8-4d84-4b94-91ff-8517bf3a82e8.webp", 
       name == "Bilal Coulibaly" ~ "https://res.cloudinary.com/djcqmdgda/image/upload/nba/prospects/headshots/106638.png", 
       TRUE ~ headshot
@@ -65,6 +83,7 @@ art_data <-
       club == "Alabama" ~ "#ffffff", 
       club == "Indiana" ~ "#ffffff", 
       club == "Duke" ~ "#ffffff", 
+      club == "TCU" ~ "#ffffff", 
       club == "Baylor" ~ "#f9bb06", 
       club == "Iowa State" ~ "#f9bb06", 
       club == "UCLA" ~ "#fabb2a", 
@@ -92,15 +111,20 @@ contrast_text_color <- function(hex_code) {
   hex_code <- gsub("#", "", hex_code)
   
   # Convert hexadecimal to decimal
-  r <- strtoi(substr(hex_code, 1, 2), base = 16)
-  g <- strtoi(substr(hex_code, 3, 4), base = 16)
-  b <- strtoi(substr(hex_code, 5, 6), base = 16)
+  r <- strtoi(substr(hex_code, 1, 2), base = 16) / 255
+  g <- strtoi(substr(hex_code, 3, 4), base = 16) / 255
+  b <- strtoi(substr(hex_code, 5, 6), base = 16) / 255
+  
+  # Linear RGB
+  r = ifelse(r > 0.03928, ((r + 0.055) / 1.055)^2.4, r / 12.92)
+  g = ifelse(g > 0.03928, ((g + 0.055) / 1.055)^2.4, g / 12.92)
+  b = ifelse(b > 0.03928, ((b + 0.055) / 1.055)^2.4, b / 12.92)
   
   # Calculate relative luminance using the sRGB color space formula
-  luminance <- (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+  luminance <- (0.2126 * r + 0.7152 * g + 0.0722 * b)
   
   # Check contrast against black (luminance: 0)
-  contrast_black <- (luminance + 0.05) / 0.05
+  contrast_black <- (luminance + 0.05) / (0 + 0.05)
   
   # Check contrast against white (luminance: 1)
   contrast_white <- (1 + 0.05) / (luminance + 0.05)
@@ -120,27 +144,35 @@ generate_art <- function(obj) {
     geom_polygon(
       aes(x, y), 
       data.frame(
-        x = c(0, 1440, 1556, 0), 
+        x = c(0, 1280, 1396, 0), 
+        y = c(0, 0, 200, 200)
+      ), 
+      fill = pluck(obj, "color")
+    ) +
+    geom_polygon(
+      aes(x, y), 
+      data.frame(
+        x = c(1300, 1920, 1920, 1416), 
         y = c(0, 0, 200, 200)
       ), 
       fill = pluck(obj, "color")
     ) +
     annotate(
       nflplotR::GeomFromPath,
-      x = 200,
-      y = 150,
-      path = pluck(obj, "headshot"), 
-      width = 0.23
+      x = 100,
+      y = 125,
+      path = pluck(obj, "logo"), 
+      width = 0.15
     ) +
     annotate(
       nflplotR::GeomFromPath,
-      x = 75,
-      y = 50,
-      path = pluck(obj, "logo"), 
-      width = 0.06
+      x = 200,
+      y = 125,
+      path = pluck(obj, "headshot"), 
+      width = 0.2
     ) +
     annotate(
-      "text", x = 400, y = 130, size = 7, hjust = 0,
+      "text", x = 400, y = 130, size = 6, hjust = 0, fontface = 2, 
       color = contrast_text_color(pluck(obj, "color")), 
       label = pluck(obj, "name")
     ) +
@@ -154,9 +186,34 @@ generate_art <- function(obj) {
       )
     ) +
     annotate(
-      "text", x = 1325, y = 100, size = 8, hjust = 0.5,
+      "text", x = 1475, y = 125, size = 5, hjust = 0.5,
       color = contrast_text_color(pluck(obj, "color")), 
       label = paste0("#", pluck(obj, "pick"))
+    ) +
+    annotate(
+      "text", x = 1475, y = 50, size = 3, hjust = 0.5,
+      color = contrast_text_color(pluck(obj, "color")), 
+      label = "Current"
+    ) +
+    annotate(
+      "text", x = 1650, y = 125, size = 5, hjust = 0.5,
+      color = contrast_text_color(pluck(obj, "color")), 
+      label = ifelse(is.null(pluck(obj, "prev_pick")), "-", paste0("#", pluck(obj, "prev_pick")))
+    ) +
+    annotate(
+      "text", x = 1650, y = 50, size = 3, hjust = 0.5,
+      color = contrast_text_color(pluck(obj, "color")), 
+      label = "Previous"
+    ) +
+    annotate(
+      "text", x = 1825, y = 125, size = 5, hjust = 0.5,
+      color = contrast_text_color(pluck(obj, "color")), 
+      label = paste0("#", pluck(obj, "industry"))
+    ) +
+    annotate(
+      "text", x = 1825, y = 50, size = 3, hjust = 0.5,
+      color = contrast_text_color(pluck(obj, "color")), 
+      label = "Industry"
     ) +
     scale_x_continuous(limits = c(0, 1920), expand = c(0, 0)) +
     scale_y_continuous(limits = c(0, 1080), expand = c(0, 0)) +

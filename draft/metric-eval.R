@@ -51,7 +51,7 @@ agg_stats <-
   mutate(
     activity = a_stl + a_blk - a_foul, 
     pass = a_ast / a_tov, 
-    activity_30 = stl_30 + blk_30, 
+    activity_30 = stl_30 + blk_30 - foul_30, 
     pass_30 = ast_30 / tov_30
   )
 
@@ -93,7 +93,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -138,7 +138,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 # JUMP SHOTS
@@ -183,7 +183,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 # THREES
@@ -209,7 +209,7 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 
@@ -235,7 +235,7 @@ agg_stats %>%
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 # REBOUNDING
@@ -254,7 +254,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 
@@ -279,7 +279,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
   )
 
 # FREE THROWS
@@ -308,5 +308,5 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Colby Jones")
+    athlete_display_name %in% c("Ben Sheppard", "Jordan Miller", "Omari Moore", "Seth Lundy")
   )
