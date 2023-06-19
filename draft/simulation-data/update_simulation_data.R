@@ -101,3 +101,4 @@ write.csv(sources, "draft/simulation-data/2023_sources.csv", row.names = FALSE)
 write.csv(max_rank, "draft/simulation-data/2023_max_rank.csv", row.names = FALSE)
 # Saving the probability board
 jsonlite::write_json(prob_board, "draft/simulation-data/2023_probability_board.json")
+
