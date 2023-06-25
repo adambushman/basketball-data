@@ -93,7 +93,7 @@ self_creation %>%
   ) %>%
   select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 # DUNKS & LAYUPS ("FINISHING")
@@ -138,7 +138,7 @@ dunks_layups %>%
     dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 # JUMP SHOTS
@@ -183,7 +183,7 @@ jumpshots %>%
     js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 # THREES
@@ -209,7 +209,7 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 
@@ -235,7 +235,7 @@ agg_stats %>%
     activity_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 # REBOUNDING
@@ -254,7 +254,7 @@ agg_stats %>%
     reb_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 
@@ -279,7 +279,7 @@ agg_stats %>%
     pass_perc
   ) %>%
   filter(
-    athlete_display_name %in% c("Amari Bailey", "Jalen Pickett")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
 
 # FREE THROWS
@@ -308,5 +308,5 @@ agg_stats %>%
     dist_avg
   ) %>%
   filter(
-    athlete_display_name %in% c("Ben Sheppard", "Jordan Miller", "Omari Moore", "Seth Lundy")
+    athlete_display_name %in% c("Taylor Hendricks", "Keyonte George", "Brice Sensabaugh")
   )
