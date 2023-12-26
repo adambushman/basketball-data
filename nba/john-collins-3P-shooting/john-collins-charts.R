@@ -6,7 +6,7 @@
 
 ## Make it a blog post: 5 ways to visualize John's 3P results
 
-all_box <- hoopR::load_nba_player_box(seasons = c(2023, 2022, 2021, 2020))
+all_box <- hoopR::load_nba_player_box(seasons = c(2024, 2023, 2022, 2021, 2020))
 
 league_avg <- 
   all_box %>%
@@ -295,6 +295,68 @@ ggplot(shooting) +
     axis.text = element_text(color = "#FFFFFF"), 
     axis.title.x = element_text(size = 10, vjust = 0), 
     axis.title.y = element_blank(), 
+    strip.text = element_text(color = "#FFFFFF", face = "bold"), 
+    strip.background = element_rect(fill = "#292929", color = NA), 
+    plot.background = element_rect(fill = "#141414", color = NA), 
+    panel.grid = element_line(color = "#292929"), 
+    
+    plot.caption = element_text(size = 5)
+  )
+
+
+
+all_box <- hoopR::load_nba_player_box(seasons = c(2024))
+collins_head <- all_box %>% filter(athlete_display_name == "John Collins") %>% select(athlete_headshot_href) %>% distinct() %>% unlist(use.names = FALSE)
+
+
+
+ggplot(
+  tibble(
+    season = as.character(seq(2018, 2024)), 
+    minutes = c(1760,1828,1363,1848,1663,2130,343), 
+    paint_touches = c(502,631,384,382,303,238,60)
+  ) %>% mutate(pt_36 = paint_touches * 36 / minutes)
+) +
+  geom_col(
+    aes(season, pt_36), 
+    fill = "#f6ee26", 
+    width = 0.7
+  ) +
+  geom_text(
+    aes(season, pt_36, label = round(pt_36, 1)), 
+    color = "#141414", 
+    fontface = "bold", 
+    vjust = 2.5, 
+    size = 2.5
+  ) +
+  annotate(
+    nflplotR::GeomFromPath,
+    x = "2018",
+    y = 1.75, 
+    path = collins_head, 
+    width = 0.15
+  ) +
+  annotate(
+    "text", x = "2024", y = 7.25, size = 2.25, shape = 21, color = "#FFFFFF", fill = NA, lineheight = 0.8, 
+    label = "Only 343\nminutes to date"
+  ) +
+  labs(
+    title = "John Collins is getting back in the paint", 
+    subtitle = glue::glue(
+      "Paint touchers **per 36 minutes** by season", 
+    ), 
+    caption = "Data via Stats.NBA.com | Accessed 11/16/2023\nDesigned by Adam Bushman (@adam_bushman)"
+  ) +
+  theme_minimal() +
+  theme(
+    text = element_text(color = "#FFFFFF"), 
+    plot.title.position = "plot", 
+    plot.margin = margin(15, 15, 7, 15), 
+    plot.title = element_text(size = 16, face = "bold"), 
+    plot.subtitle = ggtext::element_markdown(size = 10, face = "italic", lineheight = 1.2), 
+    axis.text = element_text(color = "#FFFFFF"), 
+    axis.title = element_blank(), 
+    axis.text.y = element_blank(), 
     strip.text = element_text(color = "#FFFFFF", face = "bold"), 
     strip.background = element_rect(fill = "#292929", color = NA), 
     plot.background = element_rect(fill = "#141414", color = NA), 
