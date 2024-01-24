@@ -1,3 +1,5 @@
+library('tidyverse')
+
 data <- read.csv(
   'https://raw.githubusercontent.com/ramirobentes/nba_pbp_data/main/lineup-final2024/data.csv'
 )
@@ -33,22 +35,6 @@ combos <- expand.grid(players, players, stringsAsFactors = FALSE)
 includes <- function(x, p1, p2) {
   return(p1 %in% x[[1]] & p2 %in% x[[1]])
 }
-
-data <- 
-  data_add %>%
-  filter(team == "UTA") %>%
-  filter(purrr::map_lgl(lineup_team_clean, includes, "Lauri Markkanen", "Keyonte George")) %>%
-  summarise(
-    mins = round(sum(secs_played) / 60, 0), 
-    pm = (sum(pts_team) * 100 / sum(poss_team)) - (sum(pts_opp) * 100 / sum(poss_opp))
-  ) %>%
-  mutate(
-    player1 = "Lauri Markkanen", 
-    player2 = "Keyonte George"
-  ) %>%
-  select(
-    player1, player2, mins, pm
-  )
 
 summary <- data.frame(
   matrix(NA, nrow = 0, ncol = 5)
