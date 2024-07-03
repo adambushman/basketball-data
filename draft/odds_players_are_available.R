@@ -55,9 +55,10 @@ run_odds_draft <- function(targets) {
 }
 
 players <- list(
-  "9" = c("Ausar Thompson", "Cam Whitmore"), 
-  "16" = c("Jalen Hood-Schifino", "GG Jackson"), 
-  "28" = c("Dariq Whitehead", "Dereck Lively II")
+  #"9" = c("Ausar Thompson", "Cam Whitmore"), 
+  #"16" = c("Jalen Hood-Schifino", "GG Jackson"), 
+  #"28" = c("Dariq Whitehead", "Dereck Lively II")
+  "10" = c("Taylor Hendricks", "Dereck Lively II")
 )
 
 results = c()
