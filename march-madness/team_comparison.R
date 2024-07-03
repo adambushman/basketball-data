@@ -22,12 +22,12 @@ split_shot <- function(x) {
 cbb.exp <-
   cbb.trad %>%
   mutate(
-    fgm = unlist(map(field_goals_made_field_goals_attempted, ~split_shot(.)[1])), 
-    fga = unlist(map(field_goals_made_field_goals_attempted, ~split_shot(.)[2])), 
-    fgm3 = unlist(map(three_point_field_goals_made_three_point_field_goals_attempted, ~split_shot(.)[1])), 
-    fga3 = unlist(map(three_point_field_goals_made_three_point_field_goals_attempted, ~split_shot(.)[2])), 
-    ftm = unlist(map(free_throws_made_free_throws_attempted, ~split_shot(.)[1])), 
-    fta = unlist(map(free_throws_made_free_throws_attempted, ~split_shot(.)[2])), 
+    fgm = field_goals_made, 
+    fga = field_goals_attempted, 
+    fgm3 = three_point_field_goals_made, 
+    fga3 = three_point_field_goals_attempted, 
+    ftm = free_throws_made, 
+    fta = free_throws_attempted, 
     tsa = fga + (fta * 0.44), 
     pts = ((fgm - fgm3) * 2) + (fgm3 * 3) + (ftm), 
     tsp = pts / (tsa * 2), 
@@ -48,9 +48,11 @@ get_comp <- function(my_team, line) {
   
   print(paste(my_team, ' - ', imp_prob(line) * 100, '%', sep = ''))
   
+  team_name = teams$display_name[teams$team_id == my_team]
+  
   check <-
     cbb.exp %>%
-    filter(team_display_name == my_team) %>%
+    filter(team_id == my_team) %>%
     inner_join(
       cbb.exp %>% 
         filter(team_display_name != my_team), 
@@ -104,7 +106,7 @@ get_comp <- function(my_team, line) {
   
   gt(stats) %>%
     tab_header(
-      title = my_team
+      title = team_name
     ) %>%
     cols_label(
       metric = "Metric", 
@@ -158,14 +160,20 @@ search_team <- function(word) {
         stringr::str_detect(team, word) |
         stringr::str_detect(nickname, word)
     ) %>%
-    select(display_name)
+    select(team_id, display_name) %>%
+    as.data.frame()
 }
 
-search_team("Memphis")
+
+purrr::map(list(
+  "Creighton", 
+  "Purdue"
+), search_team)
+
 
 gt_two_column_layout(
   list(
-    get_comp("Creighton Bluejays", -225), 
-    get_comp("NC State Wolfpack", 184)
+    get_comp(156, 128), 
+    get_comp(2509, 184)
   )
 )

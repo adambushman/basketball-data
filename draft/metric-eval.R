@@ -51,13 +51,9 @@ agg_stats <-
   mutate(
     activity = a_stl + a_blk - a_foul, 
     pass = a_ast / a_tov, 
-    activity_30 = stl_30 + blk_30, 
+    activity_30 = stl_30 + blk_30 - foul_30, 
     pass_30 = ast_30 / tov_30
   )
-
-glimpse(agg_stats)
-
-# SELF-CREATION
 
 self_creation <- 
   player_pbp %>%
@@ -82,21 +78,6 @@ self_creation <-
       ), 
     by = c("athlete_id_1" = "athlete_id")
   )
-
-
-self_creation %>%
-  filter(unast_fgm > 0) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    fgm_perc = percent_rank(unast_fgm), 
-    freq_perc = percent_rank(unast_freq)
-  ) %>%
-  select(athlete_display_name, athlete_position_name, team_name, unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
-
-# DUNKS & LAYUPS ("FINISHING")
 
 dunks_layups <- 
   player_pbp %>%
@@ -124,25 +105,6 @@ dunks_layups <-
     by = c("athlete_id_1" = "athlete_id")
   )
 
-dunks_layups %>%
-  filter(dl_att > 10) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    dl_freq = round(dl_att / fga, 3), 
-    freq_perc = percent_rank(dl_freq), 
-    ppa_perc = percent_rank(ppa)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name, athlete_position_name, team_name, 
-    dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
-
-# JUMP SHOTS
-
 jumpshots <- 
   player_pbp %>%
   mutate(
@@ -169,144 +131,261 @@ jumpshots <-
     by = c("athlete_id_1" = "athlete_id")
   )
 
-jumpshots %>%
-  filter(js_att > 10) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    js_freq = round(js_att / fga, 3), 
-    freq_perc = percent_rank(js_freq), 
-    ppa_perc = percent_rank(ppa)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name, athlete_position_name, team_name, 
-    js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
-
-# THREES
-
-agg_stats %>%
-  filter((gp * mp) > 100) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    a_3pR = round(a_3pa / a_fga, 3), 
-    x3pR_perc = percent_rank(a_3pR), 
-    x3pp_perc = percent_rank(a_3pp), 
-    dist_avg = round((l_3pp - a_3pp) * (a_3pa * gp), 1)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name:team_name, 
-    gp:mp, 
-    a_3pa, 
-    a_3pR, 
-    x3pR_perc, 
-    a_3pp, 
-    x3pp_perc, 
-    dist_avg
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
 
 
-# DEFENSIVE ACTIVITY
+####################
+# DISPLAY FUNCTION #
+####################
 
-agg_stats %>%
-  filter((gp * mp) > 100) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    activity_perc = percent_rank(activity_30), 
-    blk_perc = percent_rank(blk_30), 
-    stl_perc = percent_rank(stl_30), 
-    foul_perc = percent_rank(foul_30)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name:team_name, 
-    gp:mp, 
-    blk_30, 
-    stl_30, 
-    foul_30, 
-    activity_30, 
-    activity_perc
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
+display_data <- function(names, positions) {
+  remap <- function(x, y) {
+    if(!(x %in% names)) {
+      return(y)
+    } else {
+      i = which(x == names)
+      return(positions[i])
+    }
+  }
 
-# REBOUNDING
+  # SELF-CREATION
+  creation <- 
+    self_creation %>%
+    filter(unast_fgm > 0) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    ungroup() %>%
+    mutate(
+      fgm_perc = percent_rank(unast_fgm), 
+      freq_perc = percent_rank(unast_freq)
+    ) %>%
+    select(
+      name = athlete_display_name, 
+      unast_fgm, unast_freq, fgm_perc, freq_perc) %>%
+    filter(
+      name %in% names
+    )
+  
+  # JUMPSHOTS
+  jumpers <- 
+    jumpshots %>%
+    filter(js_att > 10) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      js_freq = round(js_att / fga, 3), 
+      freq_perc = percent_rank(js_freq), 
+      ppa_perc = percent_rank(ppa)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name,
+      js_att, js_pts, fga, ppa, js_freq, freq_perc, ppa_perc
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  # THREES
+  threes <- 
+    agg_stats %>%
+    filter((gp * mp) > 100) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      a_3pR = round(a_3pa / a_fga, 3), 
+      x3pR_perc = percent_rank(a_3pR), 
+      x3pp_perc = percent_rank(a_3pp), 
+      dist_avg = round((l_3pp - a_3pp) * (a_3pa * gp), 1)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name, 
+      gp:mp, 
+      a_3pa, 
+      a_3pR, 
+      x3pR_perc, 
+      a_3pp, 
+      x3pp_perc, 
+      dist_avg
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  
+  # RIM ACTIVITY
+  rim_activity <- 
+    dunks_layups %>%
+    filter(dl_att > 10) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      dl_freq = round(dl_att / fga, 3), 
+      freq_perc = percent_rank(dl_freq), 
+      ppa_perc = percent_rank(ppa)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name, 
+      dl_att, dl_pts, fga, ppa, dl_freq, freq_perc, ppa_perc
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  
+  # FREE THROWS
+  free_throws <- 
+    agg_stats %>%
+    filter((gp * mp) > 100) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    mutate(
+      a_ftR = round(a_ft / a_fga, 3), 
+      ftR_perc = percent_rank(a_ftR), 
+      ftp_perc = percent_rank(a_ftp), 
+      dist_avg = round((l_ftp - a_ftp) * (a_ft * gp), 1)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      ftR_perc = percent_rank(a_ftR)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name, 
+      gp:mp, 
+      a_ft, 
+      ft_30, 
+      a_ftR,
+      ftR_perc, 
+      a_ftp, 
+      dist_avg
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  
+  # PASSING
+  passing <- 
+    agg_stats %>%
+    filter((gp * mp) > 100) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      pass_perc = percent_rank(pass), 
+      ast_perc = percent_rank(a_ast)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name, 
+      gp:mp, 
+      a_ast, 
+      ast_30, 
+      ast_perc, 
+      pass, 
+      pass_30, 
+      pass_perc
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  # REBOUNDING
+  rebounding <- 
+    agg_stats %>%
+    filter((gp * mp) > 100) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      reb_perc = percent_rank(reb_30)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name, 
+      gp:mp, 
+      reb_30, 
+      reb_perc
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  # DEFENSIVE ACTIVITY
+  def_activity <- 
+    agg_stats %>%
+    filter((gp * mp) > 100) %>%
+    mutate(
+      athlete_position_name = purrr::map2_chr(athlete_display_name, athlete_position_name, remap)
+    ) %>%
+    group_by(athlete_position_name) %>%
+    mutate(
+      activity_perc = percent_rank(activity_30), 
+      blk_perc = percent_rank(blk_30), 
+      stl_perc = percent_rank(stl_30), 
+      foul_perc = percent_rank(foul_30)
+    ) %>%
+    ungroup() %>%
+    select(
+      name = athlete_display_name, 
+      gp:mp, 
+      blk_30, 
+      stl_30, 
+      foul_30, 
+      activity_30, 
+      activity_perc
+    ) %>%
+    filter(
+      name %in% names
+    )
+  
+  sep = "-------------------------------------------------------"
+  
+  
+  print(sep)
+  print("SELF-CREATION")
+  print(creation)
+  print(sep)
+  print("JUMPERS")
+  print(jumpers)
+  print(sep)
+  print("THREES")
+  print(threes)
+  print(sep)
+  print("FREE-THROWS")
+  print(free_throws)
+  print(sep)
+  print("RIM-ACTIVITY")
+  print(rim_activity)
+  print(sep)
+  print("PASSING")
+  print(passing)
+  print(sep)
+  print("REBOUNDING")
+  print(rebounding)
+  print(sep)
+  print("DEFENSIVE-ACTIVITY")
+  print(def_activity)
+}
 
-agg_stats %>%
-  filter((gp * mp) > 100) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    reb_perc = percent_rank(reb_30)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name:team_name, 
-    gp:mp, 
-    reb_30, 
-    reb_perc
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
 
 
-# PASSING
 
-agg_stats %>%
-  filter((gp * mp) > 100) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    pass_perc = percent_rank(pass), 
-    ast_perc = percent_rank(a_ast)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name:team_name, 
-    gp:mp, 
-    a_ast, 
-    ast_30, 
-    ast_perc, 
-    pass, 
-    pass_30, 
-    pass_perc
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )
+display_data(
+  c('Rob Dillingham', 'Cam Christie', 'Devin Carter', 'Bronny James'), 
+  c('Guard', 'Guard', 'Guard', 'Guard')
+)
 
-# FREE THROWS
-
-agg_stats %>%
-  filter((gp * mp) > 100) %>%
-  mutate(
-    a_ftR = round(a_ft / a_fga, 3), 
-    ftR_perc = percent_rank(a_ftR), 
-    ftp_perc = percent_rank(a_ftp), 
-    dist_avg = round((l_ftp - a_ftp) * (a_ft * gp), 1)
-  ) %>%
-  group_by(athlete_position_name) %>%
-  mutate(
-    ftR_perc = percent_rank(a_ftR)
-  ) %>%
-  ungroup() %>%
-  select(
-    athlete_display_name:team_name, 
-    gp:mp, 
-    a_ft, 
-    ft_30, 
-    a_ftR,
-    ftR_perc, 
-    a_ftp, 
-    dist_avg
-  ) %>%
-  filter(
-    athlete_display_name %in% c("Colby Jones")
-  )

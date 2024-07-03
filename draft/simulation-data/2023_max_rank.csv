@@ -1,93 +1,82 @@
 "Player","n_rank","rows","maxx","m_pick"
-"Victor Wembanyama",10,62,1,1
-"Brandon Miller",10,62,4,4
-"Scoot Henderson",10,62,4,4
-"Amen Thompson",10,62,9,9
-"Cam Whitmore",10,62,9,9
-"Jarace Walker",10,62,9,9
-"Ausar Thompson",10,62,10,10
-"Taylor Hendricks",10,62,14,14
-"Anthony Black",10,62,16,16
-"Cason Wallace",10,62,17,17
-"Keyonte George",10,62,18,18
-"Gradey Dick",10,62,19,19
-"Dereck Lively II",10,62,20,20
-"Kobe Bufkin",10,62,22,22
-"Jett Howard",10,62,24,24
-"Jordan Hawkins",10,62,25,25
-"Brice Sensabaugh",10,62,27,27
-"Leonard Miller",10,62,29,29
-"Kris Murray",10,62,30,30
-"Bilal Coulibaly",10,62,33,33
-"Colby Jones",9,62,33,33
-"GG Jackson",10,62,33,33
-"Maxwell Lewis",10,62,34,34
-"Dariq Whitehead",10,62,35,35
-"Nick Smith Jr.",10,62,36,36
-"Rayan Rupert",10,62,36,36
-"Noah Clowney",10,62,37,37
-"Jalen Hood-Schifino",11,62,41,41
-"James Nnaji",10,62,42,42
-"Brandin Podziemski",7,62,44,44
-"Sidy Cissoko",10,62,44,44
-"Mike Miles Jr.",3,62,47,47
-"Tristan Vukcevic",4,62,47,47
-"Trey Alexander",5,62,48,48
-"Jordan Walsh",9,62,49,49
-"Amari Bailey",7,62,50,50
-"Terquavion Smith",10,62,50,50
-"Kevin McCullar Jr.",4,62,51,51
-"Adem Bona",6,62,52,52
-"Marcus Sasser",10,62,52,52
-"Seth Lundy",2,62,52,52
-"Bobi Klintman",8,62,53,53
-"Jaime Jaquez Jr.",11,62,53,53
-"Ricky Council IV",5,62,53,53
-"Andre Jackson",10,62,54,54
-"Toumani Camara",3,62,54,54
-"Trayce Jackson-Davis",10,62,54,54
-"D'Moi Hodge",2,62,55,55
-"DaRon Holmes II",8,62,55,55
-"Jalen Slawson",2,62,55,55
-"Judah Mintz",5,62,55,55
-"Kobe Brown",8,62,55,55
-"Coleman Hawkins",3,62,56,56
-"Jalen Wilson",9,62,56,56
-"Jaylen Clark",5,62,56,56
-"Jordan Miller",4,62,56,56
-"Julian Phillips",9,62,56,56
-"Julian Strawther",10,62,56,56
-"Terrence Shannon Jr.",8,62,56,56
-"Drew Timme",2,62,57,57
-"Olivier-Maxence Prosper",10,62,57,57
-"Zach Edey",4,62,57,57
-"Ben Sheppard",7,62,58,58
-"Dillon Mitchell",4,62,58,58
-"Keyontae Johnson",7,62,58,58
-"Mouhamed Gueye",4,62,58,58
-"Reece Beekman",5,62,58,58
-"Isaiah Wong",3,62,59,59
-"Nikola Djurisic",3,62,60,60
-"Adam Flagler",1,62,57,62
-"Adama Sanogo",1,62,56,62
-"Arthur Kaluma",1,62,43,62
-"Dillon Jones",1,62,58,62
-"Emoni Bates",7,62,62,62
-"Grant Nelson",1,62,49,62
-"Hunter Tyson",1,62,57,62
-"Jalen Pickett",1,62,61,62
-"Jazian Gortman",1,62,57,62
-"Juan Nunez",1,62,50,62
-"Mojave King",1,62,52,62
-"Nae'Qwan Tomlin",1,62,53,62
-"Omari Moore",1,62,51,62
-"Oscar Tshibwe",1,62,58,62
-"Oso Ighodaro",1,62,49,62
-"Ousmane N'Diaye",1,62,43,62
-"Riley Kugel",1,62,32,62
-"Ryan Kalkbrenner",1,62,45,62
-"Sir'Jabari Rice",1,62,57,62
-"Tosan Evbuowan",1,62,54,62
-"Tucker DeVries",1,62,34,62
-"Tyler Burton",1,62,40,62
-NA,56,62,62,62
+"Victor Wembanyama",10,70,1,1
+"Scoot Henderson",10,70,3,3
+"Brandon Miller",10,70,4,4
+"Amen Thompson",10,70,7,7
+"Cam Whitmore",10,70,7,7
+"Jarace Walker",10,70,7,7
+"Anthony Black",10,70,9,9
+"Ausar Thompson",10,70,9,9
+"Taylor Hendricks",10,70,14,14
+"Bilal Coulibaly",10,70,17,17
+"Cason Wallace",10,70,17,17
+"Gradey Dick",10,70,18,18
+"Dereck Lively II",10,70,19,19
+"Jalen Hood-Schifino",10,70,21,21
+"Jordan Hawkins",10,70,22,22
+"Kobe Bufkin",10,70,22,22
+"Jett Howard",10,70,25,25
+"Keyonte George",10,70,26,26
+"Nick Smith Jr.",10,70,26,26
+"Leonard Miller",10,70,27,27
+"Dariq Whitehead",10,70,30,30
+"Kris Murray",10,70,30,30
+"Maxwell Lewis",10,70,35,35
+"Noah Clowney",10,70,35,35
+"Brice Sensabaugh",10,70,36,36
+"GG Jackson",10,70,36,36
+"Rayan Rupert",10,70,36,36
+"Ben Sheppard",9,70,38,38
+"Olivier-Maxence Prosper",10,70,39,39
+"Trayce Jackson-Davis",10,70,39,39
+"James Nnaji",10,70,40,40
+"Brandin Podziemski",9,70,42,42
+"Julian Phillips",10,70,43,43
+"Andre Jackson",10,70,44,44
+"Marcus Sasser",10,70,44,44
+"Sidy Cissoko",10,70,44,44
+"Amari Bailey",9,70,45,45
+"Jaime Jaquez Jr.",10,70,45,45
+"Julian Strawther",10,70,47,47
+"Colby Jones",9,70,48,48
+"Hunter Tyson",4,70,49,49
+"Seth Lundy",9,70,49,49
+"Jordan Walsh",10,70,52,52
+"Charles Bediako",2,70,53,53
+"Kobe Brown",9,70,54,54
+"Jalen Pickett",3,70,55,55
+"Vincent Valerio Bodon",2,70,55,55
+"D'Moi Hodge",2,70,56,56
+"Adama Sanogo",5,70,57,57
+"Drew Timme",2,70,57,57
+"Jalen Slawson",4,70,57,57
+"Jordan Miller",9,70,57,57
+"Terquavion Smith",10,70,57,57
+"Colin Castleton",6,70,58,58
+"Oscar Tshiebwe",2,70,58,58
+"Tristan Vukcevic",8,70,58,58
+"Isaiah Wong",5,70,59,59
+"Jalen Wilson",10,70,59,59
+"Jazian Gortman",2,70,59,59
+"Chris Livingston",6,70,60,60
+"Jaylen Clark",8,70,61,61
+"Sir'Jabari Rice",4,70,61,61
+"Mike Miles Jr.",5,70,62,62
+"Adam Flagler",4,70,63,63
+"Mouhamed Gueye",9,70,63,63
+"Mojave King",3,70,64,64
+"Azuolas Tubelis",4,70,65,65
+"Ricky Council IV",9,70,65,65
+"Omari Moore",2,70,67,67
+"Toumani Camara",8,70,67,67
+"Craig Porter Jr.",2,70,68,68
+"Emoni Bates",9,70,69,69
+"Darious McGhee",1,70,68,70
+"Juan Nunez",1,70,69,70
+"Justyn Mutts",1,70,64,70
+"Keyontae Johnson",9,70,70,70
+"Landers Nolley II",2,70,70,70
+"Liam Robbins",1,70,66,70
+"Nadir Hifi",1,70,54,70
+"Tosan Evbuomwan",1,70,54,70
+NA,110,70,70,70
