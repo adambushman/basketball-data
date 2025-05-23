@@ -1,0 +1,110 @@
+body {
+    background-color: #31302F;
+}
+
+#header {
+    border-bottom: 1px solid gray;
+}
+
+#master-board {
+    height: 85vh;
+    overflow: auto;
+}
+
+#top-remaining {
+    border-bottom: 1px solid grey;
+    height: 40vh;
+    overflow: auto;
+}
+
+#prospect-highlight {
+    height: 50vh;
+}
+
+table {
+    background-color: #ffffff;
+    width: 100%;
+}
+
+table tr {
+    border-top-color: #31302F;
+    border-top-width: 0.25rem;
+    border-bottom-color: #31302F;
+    border-bottom-width: 0.25rem;
+    padding: 0rem;
+    margin: 0rem;
+}
+
+table td, th {
+    padding: 0.25rem 0.25rem;
+}
+
+.pick-cell {
+    background-color: #31302F;
+    color: white;
+    padding: 0.5rem 0.25rem;
+    margin: 0rem;
+}
+
+.rank-cell {
+    color: white;
+    padding: 0.5rem 0.25rem;
+    margin: 0rem;
+}
+
+.selection-cell {
+    padding: 0.5rem 0.25rem;
+    margin: 0rem;
+}
+
+.pic-container {
+    position: relative;
+}
+
+.pic1 {
+    height: 10rem;
+    width: 10rem;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.pic2 {
+    position: absolute;
+    top: 60%;
+    left: 70%;
+    transform: translate(-50%,0%);
+    max-height: 4.5rem;
+    max-width: 7rem;
+}
+
+.prosp-name {
+    font-size: 3.5rem;
+}
+
+.prosp-club {
+    font-size: 1.75rem;
+}
+
+.card {
+    background-color: transparent;
+    border-color: grey;
+    color: white;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 10px;
+}

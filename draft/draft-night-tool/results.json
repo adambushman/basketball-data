@@ -1,0 +1,182 @@
+[
+    {
+        "pick": 1, 
+        "team": "ATL", 
+        "selection": "Z. Risacher",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 2, 
+        "team": "WAS", 
+        "selection": "A. Sarr",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 3, 
+        "team": "HOU", 
+        "selection": "R. Sheppard",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 4, 
+        "team": "SAS", 
+        "selection": "S. Castle",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 5, 
+        "team": "DET", 
+        "selection": "R. Holland",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 6, 
+        "team": "CHA", 
+        "selection": "T. Salaun",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 7, 
+        "team": "POR", 
+        "selection": "D. Clingan",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 8, 
+        "team": "MIN", 
+        "selection": "R. Dillingham",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 9, 
+        "team": "MEM", 
+        "selection": "Z. Edey",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 10, 
+        "team": "UTA", 
+        "selection": "C. Williams",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 11, 
+        "team": "CHI", 
+        "selection": "M. Buzelis",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 12, 
+        "team": "OKC", 
+        "selection": "N. Topic",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 13, 
+        "team": "SAC", 
+        "selection": "D. Carter",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 14, 
+        "team": "WAS", 
+        "selection": "C. Carrington",
+        "trade_team": "WAS"
+    }, 
+    {
+        "pick": 15, 
+        "team": "MIA", 
+        "selection": "K. Ware",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 16, 
+        "team": "PHI", 
+        "selection": "J. McCain",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 17, 
+        "team": "LAL", 
+        "selection": "D. Knecht",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 18, 
+        "team": "ORL", 
+        "selection": "T. da Silva",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 19, 
+        "team": "TOR", 
+        "selection": "J. Walter",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 20, 
+        "team": "CLE", 
+        "selection": "J. Tyson",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 21, 
+        "team": "NOP", 
+        "selection": "Y. Missi",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 22, 
+        "team": "DEN", 
+        "selection": "D. Holmes II",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 23, 
+        "team": "MIL", 
+        "selection": "A. Johnson",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 24, 
+        "team": "WAS", 
+        "selection": "K. George",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 25, 
+        "team": "NYK", 
+        "selection": "P. Dadiet",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 26, 
+        "team": "OKC", 
+        "selection": "Dillon J.",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 27, 
+        "team": "MIN", 
+        "selection": "T. Shannon Jr.",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 28, 
+        "team": "PHX", 
+        "selection": "R. Dunn",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 29, 
+        "team": "UTA", 
+        "selection": "I. Collier",
+        "trade_team": ""
+    }, 
+    {
+        "pick": 30, 
+        "team": "BOS", 
+        "selection": "B. Scheierman",
+        "trade_team": ""
+    }
+]

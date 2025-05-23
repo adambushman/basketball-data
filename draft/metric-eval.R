@@ -385,7 +385,7 @@ display_data <- function(names, positions) {
 
 
 display_data(
-  c('Rob Dillingham', 'Cam Christie', 'Devin Carter', 'Bronny James'), 
-  c('Guard', 'Guard', 'Guard', 'Guard')
+  c('Donovan Clingan','Zach Edey','DaRon Holmes II','Adem Bona'), 
+  rep('Center',4)
 )
 
