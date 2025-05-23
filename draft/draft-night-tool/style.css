@@ -7,18 +7,18 @@ body {
 }
 
 #master-board {
-    height: 85vh;
+    height: 80vh;
     overflow: auto;
 }
 
 #top-remaining {
     border-bottom: 1px solid grey;
-    height: 40vh;
+    height: 35vh;
     overflow: auto;
 }
 
 #prospect-highlight {
-    height: 50vh;
+    height: 45vh;
 }
 
 table {
