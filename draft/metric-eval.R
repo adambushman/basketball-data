@@ -385,7 +385,7 @@ display_data <- function(names, positions) {
 
 
 display_data(
-  c('Donovan Clingan','Zach Edey','DaRon Holmes II','Adem Bona'), 
-  rep('Center',4)
+  c('Kon Knueppel', 'Tre Johnson', 'Jase Richardson', 'Cedric Coward'), 
+  rep('Guard',4) # For benchmarking
 )
 
