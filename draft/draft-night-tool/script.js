@@ -7,8 +7,8 @@ function show_top_5(data, id) {
         .slice(0, 5)
         .objects();
 
-    let columns; 
-    
+    let columns;
+
     top5.forEach((d) => {
         columns = Object.keys(d)
     });
@@ -18,7 +18,7 @@ function show_top_5(data, id) {
         .attr("id", "picks-table");
 
     let my_col;
-    
+
     if(id == "#adam-board") {
         my_col = "#C9082A";
     } else if (id == "#josh-board") {
@@ -27,17 +27,17 @@ function show_top_5(data, id) {
         my_col = "grey";
     }
 
-    let tbody = table.append("tbody");   
+    let tbody = table.append("tbody");
     tbody.selectAll("tr")
         .data(top5)
         .enter()
         .append("tr")
         .selectAll("td")
-        .data((d) => { return d3.entries(d) })
+        .data((d) => Object.entries(d).map(([key, value]) => ({ key, value })))
         .enter()
         .append("td")
         .style("width", (d) => d.key == "Rank" ? "15%" : "85%")
-        .html((d) => { 
+        .html((d) => {
             if(d.key == "Rank") {
                 return `<div class="h4 rank-cell text-center" style="background-color:${my_col}">${d.value}</div>`
             } else {
@@ -49,15 +49,24 @@ function show_top_5(data, id) {
 function show_full_board(r_data, t_data, id) {
     let full_board = aq.from(r_data)
         .join_left(
-            aq.from(t_data), 
+            aq.from(t_data),
             ['team', 'team_abbreviation']
         )
-        .select({ pick: 'Pick No.', team_logo: 'Team', selection: 'Selection' })
+        .derive({trade_seq: aq.escape((d) => {
+                return d.trade_seq.map(team => {
+                    return t_data.filter(t => t.team_abbreviation == team)[0].team_logo;
+                })
+            })
+        })
+        .derive({
+            team_seq_logo: (d) => [d.team_logo, ...d.trade_seq]
+        })
+        .select({ pick: 'Pick No.', team_seq_logo: 'Team_Seq_Logo', selection: 'Selection' })
         .orderby('Pick No.')
         .objects();
 
-    let columns; 
-    
+    let columns;
+
     full_board.forEach((d) => {
         columns = Object.keys(d)
     });
@@ -65,28 +74,45 @@ function show_full_board(r_data, t_data, id) {
     let table = d3.select(id)
         .append("table")
         .attr("class", "");
-
-    let tbody = table.append("tbody");   
+    console.log(full_board);
+    let tbody = table.append("tbody");
     tbody.selectAll("tr")
         .data(full_board)
         .enter()
         .append("tr")
         .selectAll("td")
-        .data((d) => { return d3.entries(d) })
+        .data((d) => Object.entries(d).map(([key, value]) => ({ key, value })))
         .enter()
         .append("td")
-        .attr("class", (d) => d.key == "Team" ? "text-center" : "")
-        .style("width", (d) => d.key == "Pick No." ? "10%" : d.key == "Team" ? "15%" : "75%")
-        .html((d) => { 
-            if(d.key == "Team") {
-                return `<img style="width:40px;height:40px;" src="${d.value}">`;
+        .attr("class", (d) => "position-relative " + (d.key == "Team" ? "text-center" : ""))
+        .style("width", (d) => d.key == "Pick No." ? "10%" : (d.key == "Team_Seq_Logo" ? "15%" : "75%"))
+        .html((d) => {
+            if(d.key == "Team_Seq_Logo") {
+                const logos = [...d.value].map((logo, i) => {
+                    const teams_count = d.value.length - 1;
+                    let size = "40px";
+                    let grayscale = "";
+                    let y_adj = "";
+                    if(teams_count > 0) {
+                        size = (i == teams_count) ? "32px" : "15px";
+                        grayscale = (i == teams_count) ? "position-absolute" : "grayscale";
+                        y_adj = (i == teams_count) ? "top:18px;left:8px" : "";
+                    }
+                    return `<img class="${grayscale}" style="${y_adj};width:${size};height:${size};" src="${logo}">`;
+                });
+                return `
+                ${logos[logos.length - 1]}
+                <div class="position-absolute d-flex" style="top: 3px;">
+                ${logos.filter((d,n) => n != (logos.length - 1)).join("\n")}
+                </div>
+                `;
             } else {
                 if(d.key == "Pick No.") {
                     return `<div class="h4 pick-cell text-center">${d.value}</div>`
                 } else {
                     return `<div class="h4 selection-cell text-uppercase">${d.value}</div>`
                 }
-                
+
             }
          });
 }
@@ -113,18 +139,18 @@ function show_prospect(results, prospects, id) {
 
     if(prosp_data.length == 0) {
         prosp_data = {
-            age: "-", 
-            color: "-", 
-            club: "-", 
-            headshot: "https://media.istockphoto.com/id/1469198507/vector/default-avatar-male-profile-user-profile-icon-profile-picture-portrait-symbol-user-member.jpg?s=612x612&w=0&k=20&c=PBennsFimg3ChqUXSG2xNBPd2BuHWFk01kbHvsT9olY=", 
-            height: "-", 
-            wingspan: "-", 
-            length: "-", 
-            bmi: "-", 
-            off_pos: "-", 
-            def_pos: "-", 
-            logo: "https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=", 
-            name: latest_pick.selection, 
+            age: "-",
+            color: "-",
+            club: "-",
+            headshot: "https://media.istockphoto.com/id/1469198507/vector/default-avatar-male-profile-user-profile-icon-profile-picture-portrait-symbol-user-member.jpg?s=612x612&w=0&k=20&c=PBennsFimg3ChqUXSG2xNBPd2BuHWFk01kbHvsT9olY=",
+            height: "-",
+            wingspan: "-",
+            length: "-",
+            bmi: "-",
+            off_pos: "-",
+            def_pos: "-",
+            logo: "https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=",
+            name: latest_pick.selection,
             weight: "-"
         }
     } else {
@@ -135,7 +161,7 @@ function show_prospect(results, prospects, id) {
 
     d3.select(id)
         .append("div")
-        .attr("class", "row justify-content-center")
+        .attr("class", "row justify-content-center mt-3")
         .html(`
         <div class="col-3 pic-container">
             <img src="${prosp_data.headshot}" alt="${prosp_data.headshot} Headshot" class="pic1">
@@ -150,7 +176,7 @@ function show_prospect(results, prospects, id) {
         `);
 
     const attr_data = Object.entries(prosp_data)
-        .filter(p => ['age','height','wingspan','length','bmi','weight'].includes(p[0]))
+        .filter(p => ['age','height','length','bmi','weight'].includes(p[0]))
         .map(p => {
             key = p[0] == 'bmi' ? "BMI" : p[0][0].toUpperCase() + p[0].substring(1);
             if(["length", "wingspan"].includes(p[0])) {
@@ -176,7 +202,7 @@ function show_prospect(results, prospects, id) {
 
     d3.select(id)
         .append("div")
-        .attr("class", "row row-cols-3 g-2 mt-4")
+        .attr("class", "row row-cols-5 g-2 my-3")
         .selectAll()
         .data(attr_data)
         .enter()
@@ -189,6 +215,49 @@ function show_prospect(results, prospects, id) {
                 </div>
             </div>
         `);
+
+    // Distribution of mocks
+    const mocks = aq.from(prosp_data.mocks)
+        .groupby("rank")
+        .derive({num: (d) => aq.op.row_number()})
+        .objects();
+
+    const ydomain = d3.extent(d3.map(mocks, d => d.num));
+    const yrange = [0, d3.max([1,ydomain[1]]) + 1];
+    const xdomain = d3.extent(d3.map(mocks, d => d.rank));
+    const xrange = [d3.max([1, xdomain[0] - 1]), d3.max([4, xdomain[1] + 1])];
+    console.log(xrange);
+    const tickCount = d3.min([10, d3.count([... new Set(d3.map(mocks, d => d.rank))]) + 2]);
+    const img_size = d3.min([
+        (400 / yrange[1]) - 20, // Height consideration
+        (1000 / (xrange[1] - xrange[0])) - 20 // Width consideration
+    ]);
+
+    const plot = Plot.plot({
+        width: 1000,
+        height: 200,
+        style: {background: "#ffffff"},
+        marginLeft: 40, marginRight: 40,
+        x: {
+          domain: xrange,
+          tickFormat: (d) => d3.format("d")(d),
+          ticks: tickCount,
+          tickSize: (d) => 0,
+          label: null
+        },
+        y: {domain: yrange, tickFormat: (d) => null, tickSize: (d) => 0, label: null},
+        marks: [
+          Plot.image(mocks, {
+            x: "rank",
+            y: "num",
+            src: "logo",
+            width: img_size,
+            title: "source"
+          })
+        ]
+      });
+
+      document.getElementById(id.replace("#","")).appendChild(plot);
 }
 
 function resume_scroll(results) {
@@ -202,28 +271,25 @@ function resume_scroll(results) {
 }
 
 function render() {
-    d3.csv('adam_board.csv', ab_data => {
-        d3.csv('josh_board.csv', jb_data => {
-            d3.csv('mark_board.csv', mb_data => {
-                d3.json('results.json', results => {
-                    d3.csv('team_list.csv', teams => {
-                        d3.csv('prospects.csv', prospects => {
+    Promise.all([
+        d3.csv('adam_board.csv'),
+        d3.csv('josh_board.csv'),
+        d3.csv('mark_board.csv'),
+        d3.json('results.json'),
+        d3.csv('team_list.csv'),
+        d3.json('prospects.json')
+    ]).then(([ab_data, jb_data, mb_data, results, teams, prospects]) => {
+        unavailable = results
+            .map(d => d.selection)
+            .filter(x => x && x !== 'Forfeited');
 
-                            unavailable = d3.map(results, d => { return d.selection }).keys();
-                            unavailable = unavailable.filter(x => !['', 'Forfeited'].includes(x));
-
-                            show_top_5(ab_data, "#adam-board");
-                            show_top_5(jb_data, "#josh-board");
-                            show_top_5(mb_data, "#mark-board");
-                            show_full_board(results, teams, "#master-board");
-                            show_prospect(results, prospects, "#prospect-data");
-                            resume_scroll(results);
-                        })
-                    })
-                })
-            })
-        })
+        show_top_5(ab_data, "#adam-board");
+        show_top_5(jb_data, "#josh-board");
+        show_top_5(mb_data, "#mark-board");
+        show_full_board(results, teams, "#master-board");
+        show_prospect(results, prospects, "#prospect-data");
+        resume_scroll(results);
     })
-}
+};
 
 render();

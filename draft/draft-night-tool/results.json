@@ -2,181 +2,181 @@
     {
         "pick": 1,
         "team": "DAL",
-        "selection": "",
-        "trade_team": ""
+        "selection": "S. Castle",
+        "trade_seq": []
     },
     {
         "pick": 2,
         "team": "SAS",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 3,
         "team": "PHI",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 4,
         "team": "CHA",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 5,
         "team": "UTA",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 6,
         "team": "WAS",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 7,
         "team": "NOP",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 8,
         "team": "BKN",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 9,
         "team": "TOR",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 10,
         "team": "HOU",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 11,
         "team": "POR",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 12,
         "team": "CHI",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 13,
         "team": "ATL",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 14,
         "team": "SAS",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 15,
         "team": "OKC",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 16,
         "team": "ORL",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 17,
         "team": "MIN",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 18,
         "team": "WAS",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 19,
         "team": "BKN",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 20,
         "team": "MIA",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 21,
         "team": "UTA",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 22,
         "team": "ATL",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 23,
         "team": "IND",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 24,
         "team": "OKC",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 25,
         "team": "ORL",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 26,
         "team": "BKN",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 27,
         "team": "BKN",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 28,
         "team": "BOS",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 29,
         "team": "PHX",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     },
     {
         "pick": 30,
         "team": "LAC",
         "selection": "",
-        "trade_team": ""
+        "trade_seq": []
     }
 ]

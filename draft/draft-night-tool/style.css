@@ -39,6 +39,11 @@ table td, th {
     padding: 0.25rem 0.25rem;
 }
 
+.grayscale {
+    filter: grayscale(50%);
+    opacity: 80%;
+}
+
 .pick-cell {
     background-color: #31302F;
     color: white;
@@ -90,6 +95,14 @@ table td, th {
     background-color: transparent;
     border-color: grey;
     color: white;
+}
+
+svg {
+    border-radius: 5px;
+}
+
+[aria-label="x-axis tick label"] text {
+    font-size: 18px;
 }
 
 /* width */
