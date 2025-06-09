@@ -55,9 +55,9 @@
     },
     {
         "pick": 10,
-        "team": "HOU",
+        "team": "PHX",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["HOU"]
     },
     {
         "pick": 11,
@@ -73,21 +73,21 @@
     },
     {
         "pick": 13,
-        "team": "ATL",
+        "team": "SAC",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["ATL"]
     },
     {
         "pick": 14,
-        "team": "SAS",
+        "team": "ATL",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["SAS"]
     },
     {
         "pick": 15,
-        "team": "OKC",
+        "team": "MIA",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["OKC"]
     },
     {
         "pick": 16,
@@ -97,39 +97,39 @@
     },
     {
         "pick": 17,
-        "team": "MIN",
+        "team": "DET",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["MIN"]
     },
     {
         "pick": 18,
-        "team": "WAS",
+        "team": "MEM",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["WAS"]
     },
     {
         "pick": 19,
-        "team": "BKN",
+        "team": "MIL",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["BKN"]
     },
     {
         "pick": 20,
-        "team": "MIA",
+        "team": "GSW",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["MIA"]
     },
     {
         "pick": 21,
-        "team": "UTA",
+        "team": "MIN",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["UTA"]
     },
     {
         "pick": 22,
-        "team": "ATL",
+        "team": "LAL",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["ATL"]
     },
     {
         "pick": 23,
@@ -139,27 +139,27 @@
     },
     {
         "pick": 24,
-        "team": "OKC",
+        "team": "LAC",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["OKC"]
     },
     {
         "pick": 25,
-        "team": "ORL",
+        "team": "DEN",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["ORL"]
     },
     {
         "pick": 26,
-        "team": "BKN",
+        "team": "NKY",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["BKN"]
     },
     {
         "pick": 27,
-        "team": "BKN",
+        "team": "HOU",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["BKN"]
     },
     {
         "pick": 28,
@@ -169,14 +169,14 @@
     },
     {
         "pick": 29,
-        "team": "PHX",
+        "team": "CLE",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["PHX"]
     },
     {
         "pick": 30,
-        "team": "LAC",
+        "team": "OKC",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["LAC"]
     }
 ]

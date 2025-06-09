@@ -385,7 +385,7 @@ display_data <- function(names, positions) {
 
 
 display_data(
-  c('Kon Knueppel', 'Tre Johnson', 'Jase Richardson', 'Cedric Coward'), 
-  rep('Guard',4) # For benchmarking
+  c('Mark Sears', 'Walter Clayton Jr.', 'Micah Peavy', 'Ryan Nembhard', 'Kam Jones', 'Max Shulga', 'Javon Small'), 
+  rep('Guard', 7) # For benchmarking
 )
 
