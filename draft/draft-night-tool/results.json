@@ -93,7 +93,7 @@
         "pick": 16,
         "team": "ORL",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["MEM"]
     },
     {
         "pick": 17,
@@ -135,7 +135,7 @@
         "pick": 23,
         "team": "IND",
         "selection": "",
-        "trade_seq": []
+        "trade_seq": ["NOP"]
     },
     {
         "pick": 24,
