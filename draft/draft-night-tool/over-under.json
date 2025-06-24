@@ -1,0 +1,74 @@
+[
+  {
+    "ou_value": 5.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Kon Kneuppel's draft position",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 9.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Carter Bryant's draft position",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 14.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Egor Demin's draft position",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 12.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Avg draf position for UTA's round 1 selections",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 2.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Number of players selected by BKN in round 1",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 2.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Number of 1sts included in an OKC trade",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 1.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "All-Star players traded during round 1",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 3.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Round 1 trades involving 2025 round 1 picks",
+    "over": [],
+    "under": []
+  },
+  {
+    "ou_value": 5.5,
+    "actual_value": "",
+    "confirmed": false,
+    "description": "Teams leaving round 1 without a selection",
+    "over": [],
+    "under": []
+  }
+]

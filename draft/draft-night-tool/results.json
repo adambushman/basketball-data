@@ -57,7 +57,7 @@
         "pick": 10,
         "team": "PHX",
         "selection": "",
-        "trade_seq": ["HOU"]
+        "trade_seq": ["HOU", "PHX"]
     },
     {
         "pick": 11,

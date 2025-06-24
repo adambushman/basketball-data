@@ -74,7 +74,7 @@ function show_full_board(r_data, t_data, id) {
     let table = d3.select(id)
         .append("table")
         .attr("class", "");
-    console.log(full_board);
+
     let tbody = table.append("tbody");
     tbody.selectAll("tr")
         .data(full_board)
@@ -157,8 +157,6 @@ function show_prospect(results, prospects, id) {
         prosp_data = prosp_data[0]
     }
 
-    console.log(prosp_data);
-
     d3.select(id)
         .append("div")
         .attr("class", "row justify-content-center mt-3")
@@ -226,7 +224,7 @@ function show_prospect(results, prospects, id) {
     const yrange = [0, d3.max([1,ydomain[1]]) + 1];
     const xdomain = d3.extent(d3.map(mocks, d => d.rank));
     const xrange = [d3.max([1, xdomain[0] - 1]), d3.max([4, xdomain[1] + 1])];
-    console.log(xrange);
+
     const tickCount = d3.min([10, d3.count([... new Set(d3.map(mocks, d => d.rank))]) + 2]);
     const img_size = d3.min([
         (400 / yrange[1]) - 20, // Height consideration
@@ -260,6 +258,63 @@ function show_prospect(results, prospects, id) {
       document.getElementById(id.replace("#","")).appendChild(plot);
 }
 
+function show_over_under(results, over_under) {
+    console.log(results);
+    const ou_wrapper = d3.select("#overunder");
+
+    const card = ou_wrapper.selectAll()
+        .data(over_under)
+        .enter()
+        .append('div').attr("class", "col")
+        .append('div').attr("class", "card h-100")
+        .append('div').attr("class", "card-body");
+
+    // Add title
+    card.append("div")
+        .attr("class", d => {
+            // Custom styling for the actual value vs predicted
+            const size = "display-" + (d.actual_value != "" ? "4" : "3");
+            return `${size} card-title text-center mb-1 d-flex justify-content-evenly`;
+        })
+        .html(d => {
+            // Custom styling for the actual value vs predicted
+            const actual = d.actual_value != "" ? ` <span class="text-bg-warning px-2 rounded-4">${d.actual_value}</span>` : "";
+            return `<span>${d.ou_value}</span>${actual}`;
+        });
+    // Add title
+    card.append("p").attr("class", "text-center").text(d => d.description);
+    // Add horizonal rule
+    card.append("hr");
+    // Add the bets
+    const bets_wrapper = card.append("div").attr("class", "d-flex justify-content-evenly");
+    // Unders
+    const bets_under = bets_wrapper.append("div").attr("class", "pick-under");
+    bets_under.append("p").attr("class", "text-center").html(d => {
+        const truly_under = (d.actual_value != "") & (d.actual_value < d.ou_value) ? "text-bg-warning px-2 py-1 rounded" : "";
+        return `<span class="${truly_under}">Under</span>`;
+    });
+    bets_under.selectAll("img")
+        .data(d => d.under)
+        .enter()
+        .append("img")
+        .attr("class", "ou-img rounded-circle")
+        .attr("src", d => d.toLowerCase() + '-image.png');
+    // Vertical separator
+    const vr = bets_wrapper.append("div").attr("class", "vr");
+    // Overs
+    const bets_over = bets_wrapper.append("div").attr("class", "pick-over");
+    bets_over.append("p").attr("class", "text-center").html(d => {
+        const truly_over = (d.actual_value != "") & (d.actual_value > d.ou_value) ? "text-bg-warning px-2 py-1 rounded" : "";
+        return `<span class="${truly_over}">Over</span>`;
+    });
+    bets_over.selectAll("img")
+        .data(d => d.over)
+        .enter()
+        .append("img")
+        .attr("class", "ou-img rounded-circle")
+        .attr("src", d => d.toLowerCase() + '-image.png');
+}
+
 function resume_scroll(results) {
     const count = results.filter(r => ![undefined, ''].includes(r.selection)).length;
     const board = document.getElementById("master-board");
@@ -277,8 +332,9 @@ function render() {
         d3.csv('mark_board.csv'),
         d3.json('results.json'),
         d3.csv('team_list.csv'),
-        d3.json('prospects.json')
-    ]).then(([ab_data, jb_data, mb_data, results, teams, prospects]) => {
+        d3.json('prospects.json'),
+        d3.json('over-under.json')
+    ]).then(([ab_data, jb_data, mb_data, results, teams, prospects, over_under]) => {
         unavailable = results
             .map(d => d.selection)
             .filter(x => x && x !== 'Forfeited');
@@ -288,6 +344,7 @@ function render() {
         show_top_5(mb_data, "#mark-board");
         show_full_board(results, teams, "#master-board");
         show_prospect(results, prospects, "#prospect-data");
+        show_over_under(results, over_under);
         resume_scroll(results);
     })
 };

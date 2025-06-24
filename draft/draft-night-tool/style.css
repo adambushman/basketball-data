@@ -97,6 +97,20 @@ table td, th {
     color: white;
 }
 
+.nav-link {
+    color: white !important;
+}
+
+.nav-link.active {
+    background-color: white !important;
+    color: #31302F !important;
+}
+
+.ou-img {
+    height: 35px;
+    border: 1.5px solid grey;
+}
+
 svg {
     border-radius: 5px;
 }
