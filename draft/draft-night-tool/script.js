@@ -23,8 +23,10 @@ function show_top_5(data, id) {
         my_col = "#C9082A";
     } else if (id == "#josh-board") {
         my_col = "#17408B";
-    } else {
+    } else if (id == "#mark-board") {
         my_col = "grey";
+    } else {
+        my_col = "#31302F";
     }
 
     let tbody = table.append("tbody");
@@ -117,23 +119,18 @@ function show_full_board(r_data, t_data, id) {
          });
 }
 
-function abbreviate(name) {
-    let split_pos = name.indexOf(" ");
-    let first = name.substring(0, 1);
-    let last = name.substring(split_pos + 1);
-
-    return(`${first}. ${last}`)
-}
-
 function show_prospect(results, prospects, id) {
     let latest_pick = aq.from(results)
         .filter(d => d.selection != 0)
         .slice(-1)
         .objects()[0];
 
+    if(!latest_pick) {
+        return; // Abort any rendering
+    }
+
     let prosp_data = aq.from(prospects)
-        .derive({name: aq.escape(d => abbreviate(d.name))})
-        .filter(aq.escape(d => d.name == latest_pick.selection))
+        .filter(aq.escape(d => d.abbr_name == latest_pick.selection))
         .slice(0)
         .objects();
 
@@ -150,7 +147,8 @@ function show_prospect(results, prospects, id) {
             off_pos: "-",
             def_pos: "-",
             logo: "https://media.istockphoto.com/id/1222357475/vector/image-preview-icon-picture-placeholder-for-website-or-ui-ux-design-vector-illustration.jpg?s=612x612&w=0&k=20&c=KuCo-dRBYV7nz2gbk4J9w1WtTAgpTdznHu55W9FjimE=",
-            name: latest_pick.selection,
+            name: "",
+            abbr_name: latest_pick.selection,
             weight: "-"
         }
     } else {
@@ -233,7 +231,7 @@ function show_prospect(results, prospects, id) {
 
     const plot = Plot.plot({
         width: 1000,
-        height: 200,
+        height: 400,
         style: {background: "#ffffff"},
         marginLeft: 40, marginRight: 40,
         x: {
@@ -259,7 +257,6 @@ function show_prospect(results, prospects, id) {
 }
 
 function show_over_under(results, over_under) {
-    console.log(results);
     const ou_wrapper = d3.select("#overunder");
 
     const card = ou_wrapper.selectAll()
@@ -273,13 +270,15 @@ function show_over_under(results, over_under) {
     card.append("div")
         .attr("class", d => {
             // Custom styling for the actual value vs predicted
-            const size = "display-" + (d.actual_value != "" ? "4" : "3");
-            return `${size} card-title text-center mb-1 d-flex justify-content-evenly`;
+            return `$card-title text-center position-relative`;
         })
         .html(d => {
             // Custom styling for the actual value vs predicted
-            const actual = d.actual_value != "" ? ` <span class="text-bg-warning px-2 rounded-4">${d.actual_value}</span>` : "";
-            return `<span>${d.ou_value}</span>${actual}`;
+            const actual = d.actual_value != "" ? `<h4 class="position-absolute top-0 end-0 text-bg-warning px-3 rounded-4">${d.actual_value}</h4>` : "";
+            return `
+                <h4 class="display-4">${d.ou_value}</h4>
+                ${actual}
+            `;
         });
     // Add title
     card.append("p").attr("class", "text-center").text(d => d.description);
@@ -290,8 +289,9 @@ function show_over_under(results, over_under) {
     // Unders
     const bets_under = bets_wrapper.append("div").attr("class", "pick-under");
     bets_under.append("p").attr("class", "text-center").html(d => {
-        const truly_under = (d.actual_value != "") & (d.actual_value < d.ou_value) ? "text-bg-warning px-2 py-1 rounded" : "";
-        return `<span class="${truly_under}">Under</span>`;
+        const truly_under = (d.actual_value != "") & (d.confirmed) & (d.actual_value < d.ou_value)
+        const truly_under_classes = truly_under ? "text-bg-warning px-2 py-1 rounded" : "";
+        return `<span class="${truly_under_classes}">Under</span>`;
     });
     bets_under.selectAll("img")
         .data(d => d.under)
@@ -304,8 +304,9 @@ function show_over_under(results, over_under) {
     // Overs
     const bets_over = bets_wrapper.append("div").attr("class", "pick-over");
     bets_over.append("p").attr("class", "text-center").html(d => {
-        const truly_over = (d.actual_value != "") & (d.actual_value > d.ou_value) ? "text-bg-warning px-2 py-1 rounded" : "";
-        return `<span class="${truly_over}">Over</span>`;
+        const truly_over = (d.actual_value != "") & (d.confirmed) & (d.actual_value > d.ou_value) ? "text-bg-warning px-2 py-1 rounded" : "";
+        const truly_over_classes = truly_over ? "text-bg-warning px-2 py-1 rounded" : "";
+        return `<span class="${truly_over_classes}">Over</span>`;
     });
     bets_over.selectAll("img")
         .data(d => d.over)
@@ -330,11 +331,12 @@ function render() {
         d3.csv('adam_board.csv'),
         d3.csv('josh_board.csv'),
         d3.csv('mark_board.csv'),
+        d3.csv('industry_board.csv'),
         d3.json('results.json'),
         d3.csv('team_list.csv'),
         d3.json('prospects.json'),
         d3.json('over-under.json')
-    ]).then(([ab_data, jb_data, mb_data, results, teams, prospects, over_under]) => {
+    ]).then(([ab_data, jb_data, mb_data, ind_data, results, teams, prospects, over_under]) => {
         unavailable = results
             .map(d => d.selection)
             .filter(x => x && x !== 'Forfeited');
@@ -342,6 +344,7 @@ function render() {
         show_top_5(ab_data, "#adam-board");
         show_top_5(jb_data, "#josh-board");
         show_top_5(mb_data, "#mark-board");
+        show_top_5(ind_data, "#industry-board");
         show_full_board(results, teams, "#master-board");
         show_prospect(results, prospects, "#prospect-data");
         show_over_under(results, over_under);

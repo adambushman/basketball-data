@@ -27,7 +27,7 @@
     "ou_value": 12.5,
     "actual_value": "",
     "confirmed": false,
-    "description": "Avg draf position for UTA's round 1 selections",
+    "description": "Avg draft position for UTA's round 1 selections",
     "over": [],
     "under": []
   },
@@ -43,7 +43,7 @@
     "ou_value": 2.5,
     "actual_value": "",
     "confirmed": false,
-    "description": "Number of 1sts included in an OKC trade",
+    "description": "Number of overall 1sts included in an OKC trade",
     "over": [],
     "under": []
   },

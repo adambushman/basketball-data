@@ -1,69 +1,70 @@
-﻿pick_no,prospect
-1,C. Flagg
-2,D. Harper
-3,K. Maluach
-4,V. Edgecombe
-5,T. Johnson
-6,A. Bailey
-7,J. Fears
-8,K. Knueppel
-9,K. Jakucionis
-10,E. Demin
-11,N. Essengue
-12,D. Powell
-13,W. Riley
-14,C. Coward
-15,C. Murray-Boyles
-16,A. Newell
-17,C. Bryant
-18,D. Queen
-19,R. Fleming
-20,W. Clayton Jr.
-21,D. Wolf
-22,L. McNeeley
-23,J. Richardson
-24,M. Raynaud
-25,N. Clifford
-26,A. Thiero
-27,H. Yang
-28,J. Beringer
-29,T. Proctor
-30,T. SOrber
-31,N. Traore
-32,H. Sallis
-33,J. Watkins
-34,N. Penda
-35,M. Peavy
-36,B. Saraf
-37,B. Markovic
-38,J. Small
-39,C. Lanier
-40,H. Gonzalez
-41,Y. Niederhauser
-42,E. Dixon
-43,R. Kalkbrenner
-44,R. Zikarsky
-45,G. Nelson
-46,K. Jones
-47,S. James
-48,R. Luis Jr.
-49,J. TOnje
-50,B. Henshall
-51,T. Bates
-52,D. Pate
-53,V. Goldin
-54,A. Martin
-55,W. Richard
-56,A. Toohey
-57,K. Brea
-58,A. Condon
-,
-,
-,
-,
-,
-,
-,
-,
-,
+﻿pick_no,tier_no,prospect
+1,1,C. Flagg
+2,3,D. Harper
+3,3,K. Maluach
+4,4,V. Edgecombe
+5,4,T. Johnson
+6,4,A. Bailey
+7,4,J. Fears
+8,4,K. Knueppel
+9,4,K. Jakucionis
+10,4,E. Demin
+11,5,N. Essengue
+12,5,D. Powell
+13,5,W. Riley
+14,5,C. Coward
+15,5,C. Murray-Boyles
+16,5,A. Newell
+17,5,C. Bryant
+18,5,D. Queen
+19,5,R. Fleming
+20,5,W. Clayton Jr.
+21,5,D. Wolf
+22,5,L. McNeeley
+23,5,J. Richardson
+24,5,M. Raynaud
+25,5,N. Clifford
+26,5,A. Thiero
+27,5,H. Yang
+28,5,J. Beringer
+29,5,T. Proctor
+30,5,T. SOrber
+31,5,N. Traore
+32,5,H. Sallis
+33,5,J. Watkins
+34,6,N. Penda
+35,6,M. Peavy
+36,6,B. Saraf
+37,6,B. Markovic
+38,6,J. Small
+39,6,C. Lanier
+40,6,H. Gonzalez
+41,6,Y. Niederhauser
+42,6,E. Dixon
+43,6,R. Kalkbrenner
+44,6,R. Zikarsky
+45,6,G. Nelson
+46,6,K. Jones
+47,6,S. James
+48,6,R. Luis Jr.
+49,6,J. Tonje
+50,6,B. Henshall
+51,6,T. Bates
+52,6,D. Pate
+53,7,V. Goldin
+54,7,A. Martin
+55,7,W. Richard
+56,7,A. Toohey
+57,7,K. Brea
+58,7,A. Condon
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
+,,
 

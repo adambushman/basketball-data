@@ -2,7 +2,7 @@
     {
         "pick": 1,
         "team": "DAL",
-        "selection": "C. Flagg",
+        "selection": "",
         "trade_seq": []
     },
     {
@@ -129,7 +129,7 @@
         "pick": 22,
         "team": "LAL",
         "selection": "",
-        "trade_seq": ["ATL"]
+        "trade_seq": ["ATL", "BKN"]
     },
     {
         "pick": 23,

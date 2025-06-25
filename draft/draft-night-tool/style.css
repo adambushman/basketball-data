@@ -6,19 +6,18 @@ body {
     border-bottom: 1px solid gray;
 }
 
-#master-board {
+#master-board, #breaking {
     height: 80vh;
     overflow: auto;
 }
 
 #top-remaining {
-    border-bottom: 1px solid grey;
-    height: 35vh;
+    height: 71vh;
     overflow: auto;
 }
 
 #prospect-highlight {
-    height: 45vh;
+    height: 80vh;
 }
 
 table {
@@ -67,8 +66,8 @@ table td, th {
 }
 
 .pic1 {
-    height: 10rem;
-    width: 10rem;
+    height: 12rem;
+    width: 12rem;
     object-fit: cover;
     border-radius: 50%;
     background-color: white;
@@ -78,9 +77,9 @@ table td, th {
     position: absolute;
     top: 60%;
     left: 70%;
-    transform: translate(-50%,0%);
-    max-height: 4.5rem;
-    max-width: 7rem;
+    transform: translate(-35%,0%);
+    max-height: 5rem;
+    max-width: 7.5rem;
 }
 
 .prosp-name {

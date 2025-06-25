@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
-    <!-- <script src = "https://d3js.org/d3.v4.min.js" defer></script> -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/arquero@latest" defer></script>
@@ -25,10 +25,16 @@
                 <h3 class="text-white p-0 m-0">2025 NBA Draft | Round 1</h3>
                 <ul class="nav nav-pills" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link active" id="detail-tab" data-bs-toggle="pill" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="true">Draft Detail</button>
+                      <button class="nav-link active" id="detail-tab" data-bs-toggle="pill" data-bs-target="#detail-tab-pane" type="button" role="tab" aria-controls="detail-tab-pane" aria-selected="true">Prospect Detail</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                      <button class="nav-link" id="overunder-tab" data-bs-toggle="pill" data-bs-target="#overunder-tab-pane" type="button" role="tab" aria-controls="overunder-tab-pane" aria-selected="false">Draft Over/Unders</button>
+                      <button class="nav-link" id="remaining-tab" data-bs-toggle="pill" data-bs-target="#remaining-tab-pane" type="button" role="tab" aria-controls="remaining-tab-pane" aria-selected="false">Top Remaining</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="breaking-tab" data-bs-toggle="pill" data-bs-target="#breaking-tab-pane" type="button" role="tab" aria-controls="breaking-tab-pane" aria-selected="false">Breaking News</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link" id="overunder-tab" data-bs-toggle="pill" data-bs-target="#overunder-tab-pane" type="button" role="tab" aria-controls="overunder-tab-pane" aria-selected="false">Over/Unders</button>
                     </li>
                   </ul>
             </div>
@@ -45,22 +51,39 @@
             <div class="col-8">
                   <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="detail-tab-pane" role="tabpanel" aria-labelledby="detail-tab" tabindex="0">
-                        <div id="top-remaining" class="row g-2">
-                            <div class="col" id="josh-board">
-                                <h5 class="text-white">Josh's Top Remaining</h5>
-                            </div>
-                            <div class="col" id="adam-board">
-                                <h5 class="text-white">Adam's Top Remaining</h5>
-                            </div>
-                            <div class="col" id="mark-board">
-                                <h5 class="text-white">Mark's Top Remaining</h5>
-                            </div>
-                        </div>
                         <div id="prospect-highlight" class="row">
-                            <div class="col-12 d-flex align-items-center">
+                            <div class="col-12">
                                 <div id="prospect-data" class="col-12">
                                     <!-- Populates Dynamically -->
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="remaining-tab-pane" role="tabpanel" aria-labelledby="remaining-tab" tabindex="0">
+                        <div id="top-remaining" class="row g-2">
+                            <div class="col-6" id="josh-board">
+                                <h5 class="text-white">Josh's Top Remaining</h5>
+                            </div>
+                            <div class="col-6" id="mark-board">
+                                <h5 class="text-white">Mark's Top Remaining</h5>
+                            </div>
+                            <div class="col-6" id="adam-board">
+                                <h5 class="text-white">Adam's Top Remaining</h5>
+                            </div>
+                            <div class="col-6" id="industry-board">
+                                <h5 class="text-white">Consensus Top Remaining</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="breaking-tab-pane" role="tabpanel" aria-labelledby="breaking-tab" tabindex="0">
+                        <div id="breaking" class="row justify-content-center">
+                            <div class="col-6">
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">BREAKING: Boston, Atlanta and Brooklyn are finalizing a three-team trade that sends Kristaps Porzingis and a second-round pick to the Hawks, Terance Mann and Atlanta&#39;s No. 22 pick to the Nets, and Georges Niang and a second-rounder to the Celtics. <a href="https://t.co/1fcbIslyVF">pic.twitter.com/1fcbIslyVF</a></p>&mdash; Shams Charania (@ShamsCharania) <a href="https://twitter.com/ShamsCharania/status/1937644320070467798?ref_src=twsrc%5Etfw">June 24, 2025</a></blockquote>
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">BREAKING: The Boston Celtics have traded Jrue Holiday to the Portland Trail Blazers for Anfernee Simons and two second-round picks, sources tell ESPN. <a href="https://t.co/2ycXQicGkT">pic.twitter.com/2ycXQicGkT</a></p>&mdash; Shams Charania (@ShamsCharania) <a href="https://twitter.com/ShamsCharania/status/1937354016171917821?ref_src=twsrc%5Etfw">June 24, 2025</a></blockquote>
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The New Orleans Pelicans are trading CJ McCollum, Kelly Olynyk and a future second-round pick to the Washington Wizards for Jordan Poole, Saddiq Bey and the No. 40 pick, sources tell ESPN.</p>&mdash; Shams Charania (@ShamsCharania) <a href="https://twitter.com/ShamsCharania/status/1937589524114104829?ref_src=twsrc%5Etfw">June 24, 2025</a></blockquote>
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">BREAKING: The Phoenix Suns are trading two-time NBA Finals MVP Kevin Durant to the Houston Rockets for Jalen Green, Dillon Brooks, the No. 10 pick in the 2025 draft and five second-round picks, sources tell ESPN. <a href="https://t.co/EwrbA2ES9O">pic.twitter.com/EwrbA2ES9O</a></p>&mdash; Shams Charania (@ShamsCharania) <a href="https://twitter.com/ShamsCharania/status/1936826228108931393?ref_src=twsrc%5Etfw">June 22, 2025</a></blockquote>
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Orlando is sending to Memphis the No. 16 pick in the 2025 NBA Draft, Phoenix&#39;s first-round pick in 2026, Magic 2028 unprotected first-rounder and Orlando&#39;s 2030 unprotected first, sources said. Pick swap is lightly protected in 2029. <a href="https://t.co/DeWziUWLkv">https://t.co/DeWziUWLkv</a></p>&mdash; Shams Charania (@ShamsCharania) <a href="https://twitter.com/ShamsCharania/status/1934266780341399842?ref_src=twsrc%5Etfw">June 15, 2025</a></blockquote>
+                                <blockquote class="twitter-tweet"><p lang="en" dir="ltr">NBA draft deal: The Indiana Pacers are trading their No. 23 pick and the rights to Mojave King to the New Orleans Pelicans for Indiana&#39;s own 2026 first-round pick back which the Pelicans had previously acquired, sources tell ESPN.</p>&mdash; Shams Charania (@ShamsCharania) <a href="https://twitter.com/ShamsCharania/status/1935031006915858941?ref_src=twsrc%5Etfw">June 17, 2025</a></blockquote>
                             </div>
                         </div>
                     </div>

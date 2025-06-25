@@ -26,6 +26,21 @@ mocks = (
   .merge(logos, on="Source")
 )
 
+industry_board = (
+  mocks.groupby('Prospect')[['Rank']].mean()
+  .sort_values('Rank', ascending=True)
+  .reset_index()
+  .reset_index()
+  .rename(columns={'index': 'pick_no', 'Prospect': 'prospect'})
+  .assign(
+    pick_no = lambda x: x['pick_no'] + 1,
+    prospect = lambda x: x['prospect'].apply(lambda name: f"{name.split()[0][0]}. {name.split()[-1]}")
+  )
+  .drop('Rank', axis=1)
+)
+
+industry_board.to_csv("industry_board.csv", index=False)
+
 result = (
     mocks
     .groupby('Prospect')
@@ -44,3 +59,5 @@ full_data = (
 
 full_data.to_json("prospects.json", orient="records", indent=2)
 
+# Save the abbr_name column to a CSV file (for checking all boards match)
+pd.read_json("prospects.json")[['abbr_name']].to_csv("prospects.csv", index=False)
